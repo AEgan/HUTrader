@@ -3,9 +3,9 @@ class SessionsController < ApplicationController
     user = User.find_by_username(params[:username])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to user, notice: "Successfully signed in"
+      redirect_to user, notice: "Successfully signed in."
     else
-      flash[:error] = "Invalid username or password"
+      flash[:error] = "Invalid username or password."
       render 'new'
     end
   end
