@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  get 'home' => 'home#index', as: :home
 
+  resources :users, only: [:show, :new, :edit, :update, :create]
+
+  get 'home' => 'home#index', as: :home
   get 'about' => 'home#about'
+  get 'signup' => 'users#new', as: :signup
 
   root 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.

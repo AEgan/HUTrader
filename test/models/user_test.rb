@@ -109,5 +109,26 @@ class UserTest < ActiveSupport::TestCase
       no_match = FactoryGirl.build(:user, username: 'unique', email: 'unique@example.com', team_name: 'different', console: 1, password: "notsecret")
       deny no_match.valid?
     end
+
+    should "have a method to see if someone is an xbox user" do
+      assert @ryan.xbox_user?
+      assert @john.xbox_user?
+      assert @matt.xbox_user?
+      deny @alex.xbox_user?
+      deny @mike.xbox_user?
+    end
+
+    should "have a method to see if someone is a playstation user" do
+      assert @alex.playstation_user?
+      assert @mike.playstation_user?
+      deny @ryan.playstation_user?
+      deny @john.playstation_user?
+      deny @matt.playstation_user?
+    end
+
+    should "have a method to get the name of the console a player is using" do
+      assert_equal "Playstation 4", @alex.console_name
+      assert_equal "Xbox One", @ryan.console_name
+    end
   end
 end

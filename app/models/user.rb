@@ -21,4 +21,17 @@ class User < ActiveRecord::Base
   scope :for_playstation, -> { where(console: 2) }
   # might be useful when reputation is implemented
   scope :reputation_above, ->(rep) { where("reputation > ?", rep) }
+
+  # methods
+  def xbox_user?
+    self.console == 1
+  end
+
+  def playstation_user?
+    self.console == 2
+  end
+
+  def console_name
+    self.xbox_user? ? "Xbox One" : "Playstation 4"
+  end
 end
