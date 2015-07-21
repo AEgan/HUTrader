@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # using bcrypt's has_secure_password
   has_secure_password
-  
+
   # validations
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :console, numericality: { only_integer: true, greater_than: 0, less_than: 3 }, presence: true
@@ -13,4 +13,12 @@ class User < ActiveRecord::Base
   validates_format_of :email, with: /\A[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))\z/i, message: "is not a valid format"
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :team_name, presence: true, uniqueness: { case_sensitive: false, scope: :console }
+
+  # scopes
+  scope :alphabetical, -> { order(:username) }
+  scope :for_console, ->(csl) { where(console: csl) }
+  scope :for_xbox, -> { where(console: 1) }
+  scope :for_playstation, -> { where(console: 2) }
+  # might be useful when reputation is implemented
+  scope :reputation_above, ->(rep) { where("reputation > ?", rep) }
 end
