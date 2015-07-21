@@ -1,4 +1,9 @@
 class SessionsController < ApplicationController
+  before_action :already_logged_in, only: [:new, :create]
+
+  def new
+  end
+
   def create
     user = User.find_by_username(params[:username])
     if user && user.authenticate(params[:password])
@@ -11,8 +16,16 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    notice = logged_in? ?  "Goodbye" : "You were not logged in."
     session[:user_id] = nil
-    redirect_to :home, notice: 'Goodbye'
+    redirect_to :home, notice: notice
   end
 
+  private
+  # method to redirect home if trying to log in when already logged in
+  def already_logged_in
+    if logged_in?
+      redirect_to current_user, notice: "Already logged in."
+    end
+  end
 end

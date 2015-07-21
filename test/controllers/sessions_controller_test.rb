@@ -35,8 +35,29 @@ class SessionsControllerTest < ActionController::TestCase
     session[:user_id] = @alex.id
     get :destroy
     assert_redirected_to :home
-    assert_equal "Goodbye", flash[:notice]
+    assert_equal "Goodbye", flash[:notice], session.to_yaml
     assert_nil session[:user_id]
   end
 
+  test "should redirect home and get a message if you try to log in when already logged in" do
+    session[:user_id] = @alex.id
+    get :new
+    assert_redirected_to @alex
+    assert_equal "Already logged in.", flash[:notice]
+  end
+
+  test "should give a message if a user tries to log out but they were never logged in" do
+    session[:user_id] = nil
+    get :destroy
+    assert_redirected_to :home
+    assert_equal "You were not logged in.", flash[:notice]
+  end
+
+  test "should redirect to their account with a message if they try post /sessions while already logged in" do
+    session[:user_id] = @alex.id
+    post :create, username: 'nothing', password: 'here'
+    assert_redirected_to @alex
+    assert_equal "Already logged in.", flash[:notice]
+    assert_equal @alex.id, session[:user_id]
+  end
 end
