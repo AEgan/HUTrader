@@ -1,0 +1,36 @@
+{
+  "MiniTest": {
+    "coverage": {
+      "/Users/alexander.egan/projects/AEgan/HUTrader/app/models/user.rb": [
+        1,
+        1,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1437498809
+  },
+  "Unit Tests": {
+    "coverage": {
+      "/Users/alexander.egan/projects/AEgan/HUTrader/app/models/user.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null
+      ]
+    },
+    "timestamp": 1437499980
+  }
+}
