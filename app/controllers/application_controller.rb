@@ -13,12 +13,4 @@ class ApplicationController < ActionController::Base
     current_user
   end
   helper_method :logged_in?
-
-  def check_login
-    if !logged_in
-      flash[:error] = "You must log in to view this page."
-      redirect_to :login
-    end
-  end
-  helper_method :check_login
 end
