@@ -4,7 +4,6 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'contexts'
-require 'capybara/rails'
 class ActiveSupport::TestCase
   # hides sql output from unit tests
   ActiveRecord::Base.logger.level = 2
