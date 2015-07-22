@@ -1,9 +1,23 @@
 <%= simple_form_for @user do |f| %>
-  <%= f.input :username %>
-  <%= f.input :password %>
-  <%= f.input :password_confirmation %>
-  <%= f.input :email %>
-  <%= f.input :team_name %>
-  <%= f.input :console, collection: [["Xbox One", 1],["Playstation 4", 2]] %>
-  <%= f.submit %>
+  <div class='input-field'>
+    <%= f.input :username %>
+  </div>
+  <div class='input-field'>
+    <%= f.input :password %>
+  </div>
+  <div class='input-field'>
+    <%= f.input :password_confirmation %>
+  </div>
+  <div class='input-field'>
+    <%= f.input :email %>
+  </div>
+  <div class='input-field'>
+    <%= f.input :team_name %>
+  </div>
+  <div class='input-field'>
+    <%= f.input :console, collection: [["Xbox One", 1],["Playstation 4", 2]] %>
+  </div>
+  <div class='input-field'>
+    <%= f.submit nil, class: 'btn blue' %>
+  </div>
 <% end %>

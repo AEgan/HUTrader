@@ -4,3 +4,7 @@
 <p>Console: <%= @user.console_name %></p>
 <p>Team Name: <%= @user.team_name %></p>
 <p>Reputation: <%= @user.reputation.nil? ? "No trades yet" : @user.reputation %></p>
+
+<% if @user.id == current_user.id %>
+  <%= link_to "Edit", edit_user_path(@user), class: 'btn blue' %>
+<% end%>

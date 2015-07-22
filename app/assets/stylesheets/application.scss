@@ -1,0 +1,16 @@
+@import "materialize/components/color";
+@import 'materialize';
+
+.alert-box {
+  border-radius: 25px;
+  margin-top: 1%;
+  padding: 1% 1% 1% 1%;
+}
+
+.success {
+  background-color: #9aff9a;
+}
+
+.warning {
+  background-color: #fc7373;
+}

@@ -41,6 +41,9 @@ gem 'puma'
 # simple form because it's nice
 gem 'simple_form', '~> 3.1'
 
+# materialize is nice as well
+gem 'materialize-sass'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

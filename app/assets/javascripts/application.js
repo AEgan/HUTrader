@@ -11,6 +11,19 @@
 // about supported directives.
 //
 //= require jquery
+//= require materialize-sprockets
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+  // this adds the slide out navigation panel on small screens
+  $(".button-collapse").sideNav();
+
+  // this will make the alert box fade out when the x button is clicked
+  $('.close').click(function() {
+    $(this).parent().fadeOut();
+  });
+  
+  $('select').material_select();
+});

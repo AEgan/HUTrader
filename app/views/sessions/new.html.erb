@@ -1,9 +1,15 @@
 <h1>Log In</h1>
 
 <%= form_tag("/sessions", method: "post") do |f| %>
-  <%= label_tag :username, "Username" %><br />
-  <%= text_field_tag :username %><br />
-  <%= label_tag :password, "Password" %><br />
-  <%= password_field_tag :password %><br />
-  <%= submit_tag "Log In" %>
+  <div class="input-field">
+    <%= text_field_tag :username %><br />
+    <%= label_tag :username, "Username" %>
+  </div>
+  <div class="input-field">
+    <%= label_tag :password, "Password" %>
+    <%= password_field_tag :password %>
+  </div>
+  <div class="input-field">
+    <%= submit_tag "Log In", class: 'btn blue' %>
+  </div>
 <% end %>
