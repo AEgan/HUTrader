@@ -27,6 +27,7 @@ class UsersController < ApplicationController
     else
       @user = User.new(user_params)
       if @user.save
+        session[:user_id] = @user.id
         redirect_to @user, notice: "Welcome to HUTrader, #{@user.username}!"
       else
         render 'new'
