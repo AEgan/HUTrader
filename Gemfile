@@ -56,6 +56,9 @@ group :test do
   gem 'simplecov', '0.10.0'
   gem 'single_test', '0.6.0'
   gem 'minitest-reporters', '1.0.19'
+  gem 'capybara'
+  gem 'cucumber-rails', '1.4.2', require: false
+  gem 'database_cleaner'
 end
 
 group :development do
