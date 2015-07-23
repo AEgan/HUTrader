@@ -3,6 +3,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  # gracefully handle a record not found exception
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    render status: 404, file: "#{Rails.root}/public/404"
+  end
+
   private
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
