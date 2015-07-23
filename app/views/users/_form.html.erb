@@ -15,7 +15,7 @@
     <%= f.input :team_name %>
   </div>
   <div class='input-field'>
-    <%= f.input :console, collection: [["Xbox One", 1],["Playstation 4", 2]] %>
+    <%= f.input :console, collection: [["Xbox One", 1],["Playstation 4", 2]], prompt: "Console", label: false %>
   </div>
   <div class='input-field'>
     <%= f.submit nil, class: 'btn blue' %>
