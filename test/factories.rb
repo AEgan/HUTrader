@@ -9,4 +9,9 @@ FactoryGirl.define do
     team_name "TheHype"
   end
 
+  factory :team do
+    city "New York"
+    name "Islanders"
+  end
+
 end
