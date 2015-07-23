@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'sessions/new'
   post 'sessions' => 'sessions#create'
   resources :users, only: [:show, :new, :edit, :update, :create]
-
+  resources :teams, only: [:show, :index]
   get 'home' => 'home#index', as: :home
   get 'about' => 'home#about'
   get 'signup' => 'users#new', as: :signup
