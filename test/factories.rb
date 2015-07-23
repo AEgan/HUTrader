@@ -14,4 +14,13 @@ FactoryGirl.define do
     name "Islanders"
   end
 
+  factory :player do
+    first_name "Claude"
+    last_name "Giroux"
+    position "C"
+    overall 90
+    style "PLY"
+    association :team
+  end
+
 end

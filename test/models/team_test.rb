@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class TeamTest < ActiveSupport::TestCase
+  # relationship tests
+  should have_many(:players)
+
   # validation tests
   should validate_presence_of(:city)
   should validate_presence_of(:name)
@@ -12,10 +15,6 @@ class TeamTest < ActiveSupport::TestCase
 
     teardown do
       destroy_teams
-    end
-
-    should "have working records for testing" do
-      assert_equal "Flyers", @flyers.name
     end
 
     should "have an alphabetical scope to order teams alphabetically by city, then name" do
