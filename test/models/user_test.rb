@@ -51,52 +51,28 @@ class UserTest < ActiveSupport::TestCase
       destroy_users
     end
 
-    # I use this test when I add records for testing, so if something is broken
-    # I won't have to wait for the rest of the tests to see it
-    # should "have working records for testing" do
-    #   assert_equal "egan", @alex.username
-    #   assert_equal "ryan", @ryan.username
-    #   assert_equal "joz", @john.username
-    #   assert_equal "matt", @matt.username
-    #   assert_equal "mike", @mike.username
-    # end
-
     should "have a scope to list users alphabetically by username" do
       assert_equal ["egan", "joz", "matt", "mike", "ryan"], User.alphabetical.map(&:username)
     end
 
     should "have a scope to get only the playstation users" do
-      ps_users = User.for_playstation
-      assert ps_users.include?(@alex)
-      assert ps_users.include?(@mike)
-      assert_equal 2, ps_users.length
+      assert_equal [@alex, @mike].to_set, User.for_playstation.to_set
     end
 
     should "have a scope to get the xbox users" do
-      xbox_users = User.for_xbox
-      assert xbox_users.include?(@ryan)
-      assert xbox_users.include?(@john)
-      assert xbox_users.include?(@matt)
-      assert_equal 3, xbox_users.length
+      assert_equal [@ryan, @john, @matt].to_set, User.for_xbox.to_set
     end
 
-    should "have a scope to get users for a console" do
-      ps_users = User.for_console(2)
-      assert ps_users.include?(@alex)
-      assert ps_users.include?(@mike)
-      assert_equal 2, ps_users.length
-      xbox_users = User.for_console(1)
-      assert xbox_users.include?(@ryan)
-      assert xbox_users.include?(@john)
-      assert xbox_users.include?(@matt)
-      assert_equal 3, xbox_users.length
+    should "have a scope to get users for a console (using playstation value)" do
+      assert_equal [@alex, @mike].to_set, User.for_console(2).to_set
+    end
+
+    should "have a scope to get users for a console (using xbox value)" do
+      assert_equal [@ryan, @john, @matt].to_set, User.for_console(1).to_set
     end
 
     should "have a scope to get users who have a rating above a certain value" do
-      high_rated_users = User.reputation_above(7)
-      assert high_rated_users.include?(@ryan)
-      assert high_rated_users.include?(@matt)
-      assert_equal 2, high_rated_users.length
+      assert_equal [@ryan, @matt].to_set, User.reputation_above(7).to_set
     end
 
     should "not allow a user to be created with the same team name on the same console" do
@@ -112,18 +88,12 @@ class UserTest < ActiveSupport::TestCase
 
     should "have a method to see if someone is an xbox user" do
       assert @ryan.xbox_user?
-      assert @john.xbox_user?
-      assert @matt.xbox_user?
-      deny @alex.xbox_user?
-      deny @mike.xbox_user?
+      deny   @mike.xbox_user?
     end
 
     should "have a method to see if someone is a playstation user" do
       assert @alex.playstation_user?
-      assert @mike.playstation_user?
-      deny @ryan.playstation_user?
-      deny @john.playstation_user?
-      deny @matt.playstation_user?
+      deny   @matt.playstation_user?
     end
 
     should "have a method to get the name of the console a player is using" do
