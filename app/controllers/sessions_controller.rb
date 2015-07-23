@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
   def destroy
     notice = logged_in? ?  "Goodbye" : "You were not logged in."
-    session[:user_id] = nil
+    reset_session
     redirect_to :home, notice: notice
   end
 
