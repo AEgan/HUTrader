@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   def index
-    @teams = Team.alphabetical
+    @teams = Team.alphabetical.includes(:players)
   end
 
   def show
