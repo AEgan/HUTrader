@@ -24,4 +24,9 @@ class TeamsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:players)
   end
 
+  should "respond with a 404 if a team is not found" do
+    get :show, id: "wrong"
+    assert_response :missing
+  end
+
 end
