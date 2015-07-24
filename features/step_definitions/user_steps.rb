@@ -9,8 +9,13 @@ Given /^a logged-in user$/ do
 end
 
 Given /^an initial setup$/ do
-  # context used for phase 3 only
   create_users
+end
+
+Given /^a setup of teams and players$/ do
+  create_users
+  create_teams
+  create_players
 end
 
 Given /^no setup yet$/ do

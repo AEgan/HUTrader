@@ -1,0 +1,19 @@
+<h1><%= @player.proper_name %></h1>
+<p>
+  First Name: <%= @player.first_name %>
+</p>
+<p>
+  Last Name: <%= @player.last_name %>
+</p>
+<p>
+  Team: <%= link_to "#{@team.city} #{@team.name}", @team %>
+</p>
+<p>
+  Position: <%= @player.position %>
+</p>
+<p>
+  Style: <%= @player.style %>
+</p>
+<p>
+  Overall Rating: <%= @player.overall %>
+</p>
