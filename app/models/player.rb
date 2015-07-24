@@ -21,7 +21,7 @@ class Player < ActiveRecord::Base
 
   private
   def player_belongs_to_team
-    unless Team.all.map(&:id).include?(team_id)
+    if Team.find_by_id(team_id).nil?
       errors.add(:team, "does not exist in the system")
       return false
     end

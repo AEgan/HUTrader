@@ -40,5 +40,11 @@ class PlayerTest < ActiveSupport::TestCase
       no_team = FactoryGirl.build(:player, team_id: -1)
       deny no_team.valid?
     end
+
+    should "destroy a player if its associated team has beed destroyed" do
+      @flyers.destroy
+      deny Player.exists?(@giroux)
+      deny Player.exists?(@voracek)
+    end
   end
 end

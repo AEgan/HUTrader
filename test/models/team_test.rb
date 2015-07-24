@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TeamTest < ActiveSupport::TestCase
   # relationship tests
-  should have_many(:players)
+  should have_many(:players).dependent(:destroy)
 
   # validation tests
   should validate_presence_of(:city)
