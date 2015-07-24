@@ -1,0 +1,8 @@
+Models
+  User
+    username:string
+    password_digest:string
+    email:string
+    console:integer
+    team_name:string
+    reputation:decimal

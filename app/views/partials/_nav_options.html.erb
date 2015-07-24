@@ -1,0 +1,7 @@
+<% if logged_in? %>
+  <li><%= link_to current_user.username, current_user %></li>
+  <li><%= link_to "Log out", :logout %></li>
+<% else %>
+  <li><%= link_to "Log in", :login %></li>
+  <li><%= link_to "Sign Up", :signup %></li>
+<% end %>

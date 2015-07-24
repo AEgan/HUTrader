@@ -1,0 +1,25 @@
+@import "materialize/components/color";
+@import 'materialize';
+
+.alert-box {
+  border-radius: 25px;
+  margin-top: 1%;
+  padding: 1%;
+}
+
+.success {
+  background-color: #9aff9a;
+}
+
+.warning {
+  background-color: #fc7373;
+}
+
+// quick fix for materialize select label issue (https://github.com/Dogfalo/materialize/issues/1690)
+.select-dropdown {
+  display: none;
+}
+
+select {
+  display: inherit;
+}
