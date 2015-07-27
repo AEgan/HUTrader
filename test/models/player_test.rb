@@ -4,6 +4,7 @@ class PlayerTest < ActiveSupport::TestCase
   # relationships
   should belong_to(:team)
   should have_many(:trades).dependent(:destroy)
+  should have_and_belong_to_many(:offers)
 
   # validation tests
   should validate_presence_of(:first_name)
@@ -46,6 +47,18 @@ class PlayerTest < ActiveSupport::TestCase
       @flyers.destroy
       deny Player.exists?(@giroux)
       deny Player.exists?(@voracek)
+    end
+
+    should "be able to add offers to a player using a join table" do
+      create_users
+      create_trades
+      create_offers
+      @giroux.offers << @alex_offer_for_ryan_voracek
+      @giroux.offers << @alex_offer_for_matt_mcdonagh
+      assert_equal 2, @giroux.offers.length
+      destroy_offers
+      destroy_trades
+      destroy_users
     end
   end
 end

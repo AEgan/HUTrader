@@ -5,6 +5,7 @@ class Offer < ActiveRecord::Base
   # relationships
   belongs_to :trade
   belongs_to :user
+  has_and_belongs_to_many :players
 
   # validations
   validates_numericality_of :coins, only_integer: true, greater_than_or_equal_to: 0

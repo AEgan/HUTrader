@@ -3,6 +3,7 @@ class Player < ActiveRecord::Base
   # relationships
   belongs_to :team
   has_many :trades, dependent: :destroy
+  has_and_belongs_to_many :offers
 
   # validations
   validates_presence_of :first_name, :last_name
