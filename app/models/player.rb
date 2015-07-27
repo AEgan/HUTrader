@@ -1,4 +1,5 @@
 class Player < ActiveRecord::Base
+  include Referenceable
   # relationships
   belongs_to :team
   has_many :trades, dependent: :destroy
@@ -6,7 +7,7 @@ class Player < ActiveRecord::Base
   # validations
   validates_presence_of :first_name, :last_name
   validates_numericality_of :overall, only_integer: true, allow_blank: true
-  validate :player_belongs_to_team
+  validate -> { reference_exists_in_system("Team") }
 
   # scopes
   scope :alphabetical, -> { order(:last_name, :first_name) }
@@ -20,14 +21,5 @@ class Player < ActiveRecord::Base
   # get the player's name in FIRST LAST format
   def proper_name
     "#{first_name} #{last_name}"
-  end
-
-  private
-  def player_belongs_to_team
-    if Team.find_by_id(team_id).nil?
-      errors.add(:team, "does not exist in the system")
-      return false
-    end
-    true
   end
 end

@@ -1,4 +1,5 @@
 class Trade < ActiveRecord::Base
+  include Referenceable
   # relationships
   belongs_to :user
   belongs_to :partner, class_name: "User"
@@ -7,8 +8,8 @@ class Trade < ActiveRecord::Base
   # validations
   validates_numericality_of :user_rating, only_integer: true, allow_nil: true
   validates_numericality_of :partner_rating, only_integer: true, allow_nil: true
-  validate :valid_user_exists
-  validate :valid_player_exists
+  validate -> { reference_exists_in_system("User") }
+  validate -> { reference_exists_in_system("Player") }
 
   # we could get pretty detailed with different statuses, but I figured we need
   # a way to determine trades without a confirmed partner, completed trades to
@@ -20,20 +21,4 @@ class Trade < ActiveRecord::Base
   scope :open, -> { where(status: "Open") }
   scope :complete, -> { where(status: "Complete") }
 
-  private
-  def valid_user_exists
-    if User.find_by_id(user_id).nil?
-      errors.add(:user, "does not exist in the system")
-      return false
-    end
-    true
-  end
-
-  def valid_player_exists
-    if Player.find_by_id(player_id).nil?
-      errors.add(:player, "does not exist in the system")
-      return false
-    end
-    true
-  end
 end
