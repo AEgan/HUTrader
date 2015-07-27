@@ -4,6 +4,10 @@ class UserTest < ActiveSupport::TestCase
   # has_secure_password test
   should have_secure_password
 
+  # relationship testing
+  should have_many(:trades)
+  should have_many(:partnered_trades).with_foreign_key(:partner_id).class_name('Trade')
+
   # validation testing
   should validate_presence_of :username
   should validate_presence_of :email

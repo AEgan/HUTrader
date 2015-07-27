@@ -3,6 +3,7 @@ require 'test_helper'
 class PlayerTest < ActiveSupport::TestCase
   # relationships
   should belong_to(:team)
+  should have_many(:trades).dependent(:destroy)
 
   # validation tests
   should validate_presence_of(:first_name)

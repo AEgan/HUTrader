@@ -1,6 +1,9 @@
 class Player < ActiveRecord::Base
+  # relationships
   belongs_to :team
+  has_many :trades, dependent: :destroy
 
+  # validations
   validates_presence_of :first_name, :last_name
   validates_numericality_of :overall, only_integer: true, allow_blank: true
   validate :player_belongs_to_team

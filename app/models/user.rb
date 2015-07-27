@@ -2,6 +2,11 @@ class User < ActiveRecord::Base
   # using bcrypt's has_secure_password
   has_secure_password
 
+  # relationships
+  has_many :trades
+  # need a better name for this...
+  has_many :partnered_trades, foreign_key: :partner_id, class_name: 'Trade'
+
   # validations
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :console, numericality: { only_integer: true, greater_than: 0, less_than: 3 }, presence: true
