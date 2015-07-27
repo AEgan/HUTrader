@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :trades
   # need a better name for this...
   has_many :partnered_trades, foreign_key: :partner_id, class_name: 'Trade'
+  has_many :offers
 
   # validations
   validates :username, presence: true, uniqueness: { case_sensitive: false }

@@ -5,6 +5,7 @@ class TradeTest < ActiveSupport::TestCase
   should belong_to(:user)
   should belong_to(:partner).class_name("User")
   should belong_to(:player)
+  should have_many(:offers)
 
   # validations
   should validate_numericality_of(:user_rating).only_integer

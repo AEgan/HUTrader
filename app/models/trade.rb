@@ -4,6 +4,7 @@ class Trade < ActiveRecord::Base
   belongs_to :user
   belongs_to :partner, class_name: "User"
   belongs_to :player
+  has_many :offers
 
   # validations
   validates_numericality_of :user_rating, only_integer: true, allow_nil: true
