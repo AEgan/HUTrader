@@ -11,6 +11,7 @@ class Trade < ActiveRecord::Base
   validates_numericality_of :partner_rating, only_integer: true, allow_nil: true
   validate -> { reference_exists_in_system("User") }
   validate -> { reference_exists_in_system("Player") }
+  validate :partner_and_offer_are_valid?, if: :partner_id_changed?
 
   # we could get pretty detailed with different statuses, but I figured we need
   # a way to determine trades without a confirmed partner, completed trades to
@@ -22,4 +23,16 @@ class Trade < ActiveRecord::Base
   scope :open, -> { where(status: "Open") }
   scope :complete, -> { where(status: "Complete") }
 
+  # gets the offer that has been accepted by using the partner_id and the trade's id
+  def offer
+    Offer.where(user_id: self.partner_id, trade_id: self.id).first
+  end
+
+  private
+  def partner_and_offer_are_valid?
+    if User.find_by_id(self.partner_id).nil? || self.offer.nil?
+      errors.add(:base, "this isn't gunna work")
+      return false
+    end
+  end
 end
