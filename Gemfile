@@ -47,6 +47,10 @@ gem 'materialize-sass'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# for running rake db:seed on heroku
+gem 'factory_girl_rails', '4.5.0'
+gem 'faker', '1.4.3'
+
 # Gems used only in testing
 group :test do
   gem 'shoulda', '3.5.0'

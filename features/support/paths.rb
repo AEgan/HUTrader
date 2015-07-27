@@ -16,6 +16,12 @@ module NavigationHelpers
       login_path
     when /log out\s?/
       logout_path
+    when /the teams\s?page/
+      teams_path
+    when /the Flyers\s? page/
+      team_path(@flyers)
+    when /Giroux's\s? page/
+      player_path(@giroux)
     else
       begin
         page_name =~ /the (.*) page/

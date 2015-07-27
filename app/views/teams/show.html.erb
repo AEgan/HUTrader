@@ -1,0 +1,20 @@
+<h1><%= "#{@team.city} #{@team.name}"%></h1>
+<h4>Players (<%= @players.length %>)</h4>
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Position</th>
+    <th>Overall</th>
+    <th>Style</th>
+  </thead>
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= link_to player.proper_name, player %></td>
+        <td><%= player.position %></td>
+        <td><%= player.overall %></td>
+        <td><%= player.style %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

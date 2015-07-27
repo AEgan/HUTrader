@@ -6,3 +6,13 @@ Models
     console:integer
     team_name:string
     reputation:decimal
+  Team
+    name:string
+    city:string
+  Player
+    first_name:string
+    last_name:string
+    position:string
+    team_id:integer
+    style:string
+    overall:integer

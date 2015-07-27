@@ -1,0 +1,15 @@
+<h1>All Teams</h1>
+<table>
+  <thead>
+    <th>Team</th>
+    <th>Number of Players</th>
+  </thead>
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td><%= link_to "#{team.city} #{team.name}", team %></td>
+        <td><%= link_to "#{team.players.length}", team %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
