@@ -55,30 +55,34 @@ class TradeTest < ActiveSupport::TestCase
       deny no_player.valid?
     end
 
-    should "have a method to get the offer that has been accepted for the trade" do
-      create_offers
-      assert_equal @alex_offer_for_ryan_voracek, @ryan_voracek_trade.offer
-      destroy_offers
-    end
+    context "with offers for trades" do
+      setup do
+        create_offers
+      end
+      teardown do
+        destroy_offers
+      end
 
-    should "return nil if a trade does not have a confirmed partner" do
-      create_offers
-      assert_nil @john_tabares_trade.offer
-      destroy_offers
-    end
+      should "have a method to get the offer that has been accepted for the trade" do
+        assert_equal @alex_offer_for_ryan_voracek, @ryan_voracek_trade.offer
+        destroy_offers
+      end
 
-    should "add an error if the partner_id is set but that user does not exist" do
-      assert @alex_giroux_trade.valid?
-      @alex_giroux_trade.partner_id = -1
-      deny @alex_giroux_trade.valid?
-    end
+      should "return nil if a trade does not have a confirmed partner" do
+        assert_nil @john_tabares_trade.offer
+      end
 
-    should "add an error if the trade partner has not actually offered a trade" do
-      create_offers
-      assert @alex_giroux_trade.valid?
-      @alex_giroux_trade.partner_id = @matt.id
-      deny @alex_giroux_trade.valid?
-      destroy_offers
+      should "add an error if the partner_id is set but that user does not exist" do
+        assert @alex_giroux_trade.valid?
+        @alex_giroux_trade.partner_id = -1
+        deny @alex_giroux_trade.valid?
+      end
+
+      should "add an error if the trade partner has not actually offered a trade" do
+        assert @alex_giroux_trade.valid?
+        @alex_giroux_trade.partner_id = @matt.id
+        deny @alex_giroux_trade.valid?
+      end
     end
   end
 

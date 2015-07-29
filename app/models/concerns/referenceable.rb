@@ -1,13 +1,11 @@
 module Referenceable extend ActiveSupport::Concern
 
-  def reference_exists_in_system(class_name)
-    klass = Object.const_get(class_name.to_s)
+  def reference_exists_in_system(klass)
+    class_name = klass.to_s
     foreign_key = "#{class_name.downcase}_id"
-    record = klass.find_by_id(self.send(foreign_key))
+    record = klass.find_by_id(send(foreign_key))
     if record.nil?
-      self.errors.add(foreign_key, "does not exist in the system")
-      return false
+      errors.add(foreign_key, "does not exist in the system")
     end
-    true
   end
 end

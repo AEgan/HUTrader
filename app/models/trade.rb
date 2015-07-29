@@ -9,8 +9,8 @@ class Trade < ActiveRecord::Base
   # validations
   validates_numericality_of :user_rating, only_integer: true, allow_nil: true
   validates_numericality_of :partner_rating, only_integer: true, allow_nil: true
-  validate -> { reference_exists_in_system("User") }
-  validate -> { reference_exists_in_system("Player") }
+  validate -> { reference_exists_in_system(User) }
+  validate -> { reference_exists_in_system(Player) }
   validate :partner_and_offer_are_valid?, if: :partner_id_changed?
 
   # we could get pretty detailed with different statuses, but I figured we need
@@ -25,14 +25,13 @@ class Trade < ActiveRecord::Base
 
   # gets the offer that has been accepted by using the partner_id and the trade's id
   def offer
-    Offer.where(user_id: self.partner_id, trade_id: self.id).first
+    Offer.where(user_id: partner_id, trade_id: id).first
   end
 
   private
   def partner_and_offer_are_valid?
-    if User.find_by_id(self.partner_id).nil? || self.offer.nil?
-      errors.add(:base, "this isn't gunna work")
-      return false
+    if User.find_by_id(partner_id).nil? || offer.nil?
+      errors.add(:base, "there is no valid trade offer and partner for this trade")
     end
   end
 end

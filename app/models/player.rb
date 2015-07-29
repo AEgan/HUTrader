@@ -8,7 +8,7 @@ class Player < ActiveRecord::Base
   # validations
   validates_presence_of :first_name, :last_name
   validates_numericality_of :overall, only_integer: true, allow_blank: true
-  validate -> { reference_exists_in_system("Team") }
+  validate -> { reference_exists_in_system(Team) }
 
   # scopes
   scope :alphabetical, -> { order(:last_name, :first_name) }
