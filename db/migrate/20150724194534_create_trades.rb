@@ -6,7 +6,7 @@ class CreateTrades < ActiveRecord::Migration
       t.integer :player_id
       t.integer :user_rating
       t.integer :partner_rating
-      t.string :status, default: "Open"
+      t.string :status, default: Trade::STATUSES["open"]
 
       t.timestamps null: false
     end

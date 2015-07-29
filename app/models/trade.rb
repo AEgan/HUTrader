@@ -17,11 +17,12 @@ class Trade < ActiveRecord::Base
   # a way to determine trades without a confirmed partner, completed trades to
   # use to see ratings, and closed (canceled). The other two aren't as important
   # for people looking for trades, but are intended for people involved with the trade
-  validates_inclusion_of :status, in: ["Open", "Partner Found", "Awaiting Ratings", "Complete", "Closed"]
+  STATUSES = YAML.load_file("#{Rails.root}/config/trade_statuses.yml")
+  validates_inclusion_of :status, in: STATUSES.values
 
   # scopes
-  scope :open, -> { where(status: "Open") }
-  scope :complete, -> { where(status: "Complete") }
+  scope :open, -> { where(status: STATUSES["open"]) }
+  scope :complete, -> { where(status: STATUSES["complete"]) }
 
   # gets the offer that has been accepted by using the partner_id and the trade's id
   def offer
