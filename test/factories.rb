@@ -23,4 +23,14 @@ FactoryGirl.define do
     association :team
   end
 
+  factory :trade do
+    association :user
+    association :partner, factory: :user
+    association :player
+  end
+
+  factory :offer do
+    association :trade
+    association :user
+  end
 end

@@ -7,7 +7,8 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by_username(params[:username])
     if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
+      sign_in user
+      self.current_user= user
       redirect_to user, notice: "Successfully signed in."
     else
       flash[:error] = "Invalid username or password."
@@ -17,7 +18,8 @@ class SessionsController < ApplicationController
 
   def destroy
     notice = logged_in? ?  "Goodbye" : "You were not logged in."
-    reset_session
+    log_out
+    self.current_user= nil
     redirect_to :home, notice: notice
   end
 
