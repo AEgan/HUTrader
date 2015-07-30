@@ -26,6 +26,10 @@ module NavigationHelpers
       trades_path
     when /the new trade\s? page/
       new_trade_path
+    when /Alex's Giroux trade page/
+      trade_path(@alex_giroux_trade)
+    when /Matt's McDonagh trade page/
+      trade_path(@matt_mcdonagh_trade)
     else
       begin
         page_name =~ /the (.*) page/

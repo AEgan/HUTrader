@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
 
   def check_login
     if !logged_in?
-      flash[:warning] = "You are not authorized to preform this action."
+      flash[:warning] = "You are not authorized to perform this action."
       redirect_to :home
     end
   end

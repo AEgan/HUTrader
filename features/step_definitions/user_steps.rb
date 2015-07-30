@@ -32,6 +32,10 @@ Given /^a setup of trades$/ do
   create_trades
 end
 
+Given /^a setup of offers$/ do
+  create_offers
+end
+
 Given /^no setup yet$/ do
   # assumes initial setup already run as background
   destroy_users

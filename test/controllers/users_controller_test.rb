@@ -37,7 +37,7 @@ class UsersControllerTest < ActionController::TestCase
 
   should "not get to the edit page if a user is not logged in" do
     get :edit, id: @alex.id
-    assert_equal "You are not authorized to preform this action.", flash[:warning]
+    assert_equal "You are not authorized to perform this action.", flash[:warning]
     assert_redirected_to :home
   end
 

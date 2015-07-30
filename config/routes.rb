@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :new, :edit, :update, :create]
   resources :teams, only: [:show, :index]
   resources :trades, only: [:index, :show, :new, :edit, :update, :create]
+  post 'trades/:id/cancel' => 'trades#cancel', as: :cancel_trade
   get 'players/:id' => 'players#show', as: :player
   get 'home' => 'home#index', as: :home
   get 'about' => 'home#about'

@@ -1,5 +1,5 @@
 class TradesController < ApplicationController
-  before_action :set_trade, only: [:show, :edit, :update]
+  before_action :set_trade, only: [:show, :edit, :update, :cancel]
   before_action :check_login, only: [:new, :create]
   def index
     @open_trades = Trade.open.chronological.includes(:player, :user)
@@ -8,6 +8,20 @@ class TradesController < ApplicationController
   end
 
   def show
+    @user = @trade.user
+    @partner = @trade.partner
+    @player = @trade.player
+  end
+
+  def cancel
+    if !logged_in? || current_user.id != @trade.user_id || @trade.status != Trade::STATUSES['open']
+      flash[:warning] = "You are not authorized to perform this action." 
+      redirect_to :home
+    else
+      @trade.status = Trade::STATUSES['closed']
+      @trade.save
+      redirect_to @trade, notice: "Trade has been closed."
+    end
   end
 
   def edit

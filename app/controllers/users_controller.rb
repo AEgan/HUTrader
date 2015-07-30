@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   # makes sure the logged in user is the user that is being edited/updated
   def check_user_is_authorized
     if !logged_in? || current_user.id != @user.id
-      flash[:warning] = "You are not authorized to preform this action."
+      flash[:warning] = "You are not authorized to perform this action."
       redirect_to :home
     end
   end

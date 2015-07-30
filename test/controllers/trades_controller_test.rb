@@ -55,4 +55,51 @@ class TradesControllerTest < ActionController::TestCase
     assert_redirected_to trade_path(assigns(:trade))
     assert_equal "Trade for #{@tavares.proper_name} has been posted.", flash[:notice]
   end
+
+  should "successfully get trade information" do
+    get :show, id: @alex_giroux_trade.id
+    assert_response :success
+    assert_not_nil assigns(:trade)
+    assert_not_nil assigns(:user)
+    assert_not_nil assigns(:player)
+  end
+
+  should "include the trade partners information if available" do
+    create_offers
+    get :show, id: @ryan_voracek_trade.id
+    assert_response :success
+    assert_not_nil assigns(:partner)
+    destroy_offers
+  end
+
+  should "respond with a 404 if a trade is not found" do
+    get :show, id: -1
+    assert_response :missing
+  end
+
+  should "not be able to cancel a trade if not logged in" do
+    post :cancel, id: @alex_giroux_trade.id
+    assert_not_authorized
+  end
+
+  should "not be able to cancel a trade if not logged in as the user who created the trade" do
+    session[:user_id] = @ryan.id
+    post :cancel, id: @alex_giroux_trade.id
+    assert_not_authorized
+  end
+
+  should "be able to cancel a trade if logged in as the user who created the trade" do
+    session[:user_id] = @alex.id
+    post :cancel, id: @alex_giroux_trade.id
+    assert_redirected_to assigns(:trade)
+    assert_equal "Trade has been closed.", flash[:notice]
+    @alex_giroux_trade.reload
+    assert @alex_giroux_trade.status == Trade::STATUSES['closed']
+  end
+
+  should "not be able to cancel a trade if it's already been completed" do
+    session[:user_id] = @matt.id
+    post :cancel, id: @matt_mcdonagh_trade.id
+    assert_not_authorized
+  end
 end
