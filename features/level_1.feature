@@ -17,5 +17,7 @@ Feature: Standard Business
     And I should see "Upcoming Features:"
     And I should see "See here for more information on HUT" within "#footer"
     And I should see "Log in" within ".nav-wrapper"
+    And I should see "Collections" within ".nav-wrapper"
+    And I should see "Trades" within ".nav-wrapper"
     And I should not see "egan" within ".nav-wrapper"
     And I should not see "Log out" within ".nav-wrapper"

@@ -22,6 +22,8 @@ module NavigationHelpers
       team_path(@flyers)
     when /Giroux's\s? page/
       player_path(@giroux)
+    when /the trades\s? page/
+      trades_path
     else
       begin
         page_name =~ /the (.*) page/

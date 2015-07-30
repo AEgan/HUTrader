@@ -34,3 +34,14 @@ CSV.foreach(Rails.root + "doc/teams.csv") do |team_row|
       style: player_row[4])
   end
 end
+
+# create open trades.. lets do 50
+player_count = Player.count
+first_player_id = Player.first.id
+user_count = User.count
+first_user_id = User.first.id
+50.times do
+  player = Player.find(rand(player_count) + first_player_id)
+  user = User.find(rand(user_count) + first_user_id)
+  FactoryGirl.create(:trade, user: user, player: player, partner: nil)
+end

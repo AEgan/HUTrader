@@ -1,0 +1,19 @@
+<h2><%= trade_header %></h2>
+<table>
+  <thead>
+    <th>Player</th>
+    <th>User</th>
+    <th>Team Name</th>
+    <th>Console</th>
+  </thead>
+  <tbody>
+    <% trades.each do |trade| %>
+      <tr>
+        <td><%= link_to trade.player.proper_name, trade %></td>
+        <td><%= link_to trade.user.username, trade.user %></td>
+        <td><%= link_to trade.user.team_name, trade.user %></td>
+        <td><span class="<%= trade.user.xbox_user? ? 'green' : 'blue'%> white-text console-tag"><%= trade.user.console_name %></span></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

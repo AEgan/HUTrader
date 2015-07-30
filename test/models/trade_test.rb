@@ -45,6 +45,10 @@ class TradeTest < ActiveSupport::TestCase
       assert_equal [@matt_mcdonagh_trade, @mike_giroux_trade].to_set, Trade.complete.to_set
     end
 
+    should "have a scope to sort trades in order of newest to oldest" do
+      assert_equal [@john_tabares_trade, @mike_giroux_trade, @matt_mcdonagh_trade, @ryan_voracek_trade, @alex_giroux_trade], Trade.chronological
+    end
+
     should "Not allow a trade to be created without a valid user" do
       no_user = FactoryGirl.build(:trade, user_id: -1, player: @giroux, partner: nil)
       deny no_user.valid?

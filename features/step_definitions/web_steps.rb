@@ -32,6 +32,10 @@ When /^(?:|I )click on the link "([^"]*)"/ do |link_name|
   click_link "#{link_name}"
 end
 
+When /^(?:|I )click on the first link "([^"]*)"/ do |link_name|
+  first(:link, link_name).click
+end
+
 When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
 end

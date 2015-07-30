@@ -44,6 +44,9 @@ gem 'simple_form', '~> 3.1'
 # materialize is nice as well
 gem 'materialize-sass'
 
+# will_paginate for pagination
+gem 'will_paginate', '3.0.7'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -55,7 +58,6 @@ gem 'faker', '1.4.3'
 group :test do
   gem 'shoulda', '3.5.0'
   gem 'shoulda-matchers', '2.8.0'
-  gem 'factory_girl_rails', '4.5.0'
   gem 'mocha', require: false
   gem 'simplecov', '0.10.0'
   gem 'single_test', '0.6.0'
@@ -63,6 +65,7 @@ group :test do
   gem 'capybara'
   gem 'cucumber-rails', '1.4.2', require: false
   gem 'database_cleaner'
+  gem 'launchy'
 end
 
 group :development do
@@ -71,7 +74,6 @@ group :development do
   gem 'binding_of_caller', '0.7.2'
   gem 'wirble', '0.1.3'
   gem 'hirb', '0.7.3'
-  gem 'faker', '1.4.3'
 end
 
 group :development, :test do
