@@ -5,7 +5,12 @@ class Offer < ActiveRecord::Base
   # relationships
   belongs_to :trade
   belongs_to :user
-  has_and_belongs_to_many :players
+  has_many :offer_players
+  has_many :players, through: :offer_players
+
+  accepts_nested_attributes_for :offer_players,
+    reject_if: lambda {|offer_player| offer_player["player_id"].blank? },
+    allow_destroy: true
 
   # validations
   validates_numericality_of :coins, only_integer: true, greater_than_or_equal_to: 0

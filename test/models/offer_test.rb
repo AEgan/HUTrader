@@ -4,7 +4,10 @@ class OfferTest < ActiveSupport::TestCase
   # relationships
   should belong_to(:trade)
   should belong_to(:user)
-  should have_and_belong_to_many(:players)
+  should have_many(:offer_players)
+  should have_many(:players).through(:offer_players)
+
+  should accept_nested_attributes_for(:offer_players).allow_destroy(true)
 
   # validations
   should validate_numericality_of(:coins).only_integer.is_greater_than_or_equal_to(0)

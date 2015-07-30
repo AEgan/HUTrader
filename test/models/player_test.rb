@@ -4,7 +4,8 @@ class PlayerTest < ActiveSupport::TestCase
   # relationships
   should belong_to(:team)
   should have_many(:trades).dependent(:destroy)
-  should have_and_belong_to_many(:offers)
+  should have_many(:offer_players)
+  should have_many(:offers).through(:offer_players)
 
   # validation tests
   should validate_presence_of(:first_name)
