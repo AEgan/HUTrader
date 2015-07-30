@@ -8,6 +8,13 @@ Given /^a logged-in user$/ do
   click_button("Log In")
 end
 
+Given /^a logged-in xbox user$/ do
+  visit login_path
+  fill_in "username", with: "ryan"
+  fill_in "password", with: "secret"
+  click_button("Log In")
+end
+
 Given /^an initial setup$/ do
   create_users
 end

@@ -24,6 +24,8 @@ module NavigationHelpers
       player_path(@giroux)
     when /the trades\s? page/
       trades_path
+    when /the new trade\s? page/
+      new_trade_path
     else
       begin
         page_name =~ /the (.*) page/

@@ -48,3 +48,39 @@ Feature: Trading
     When I go to the trades page
     And I click on the first link "Claude Giroux"
     Then I should see "Trade Details"
+
+  Scenario: Creating a trade is unsuccessful if not logged in
+    When I go to the new trade page
+    Then I should not see "Create a new trade"
+    And I should not see "Create a trade for Xbox One"
+    And I should not see "Create a trade for Playstation 4"
+    And I should see "You are not authorized to preform this action."
+
+  Scenario: The new trade page says the console name for Playstation
+    Given a logged-in user
+    When I go to the new trade page
+    Then I should see "Create a trade for Playstation 4"
+    And I should not see "Create a trade for Xbox One"
+
+  Scenario: The new trade page says the console name for Xbox
+    Given a logged-in xbox user
+    When I go to the new trade page
+    Then I should see "Create a trade for Xbox One"
+    And I should not see "Create a trade for Playstation 4"
+
+  Scenario: Trying to create a trade is unsuccessful without choosing a player
+    Given a logged-in user
+    When I go to the new trade page
+    And I press "Create Trade"
+    Then I should see "Please review the problems below"
+    And I should see "does not exist in the system"
+    And I should not see "Trade for"
+    And I should not see "has been posted."
+
+  Scenario: Creating a trade with a real player is successful
+    Given a logged-in user
+    When I go to the new trade page
+    And I select "Giroux, Claude" from "trade_player_id"
+    And I press "Create Trade"
+    Then I should see "Trade Details"
+    And I should see "Trade for Claude Giroux has been posted."

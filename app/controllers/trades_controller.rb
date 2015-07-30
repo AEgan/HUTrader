@@ -1,5 +1,6 @@
 class TradesController < ApplicationController
   before_action :set_trade, only: [:show, :edit, :update]
+  before_action :check_login, only: [:new, :create]
   def index
     @open_trades = Trade.open.chronological.includes(:player, :user)
     @xbox_trades = @open_trades.select { |t| t.user.xbox_user? }
@@ -13,9 +14,17 @@ class TradesController < ApplicationController
   end
 
   def new
+    @trade = Trade.new
+    @teams = Team.alphabetical.includes(:players)
   end
 
   def create
+    @trade = Trade.new(trade_params)
+    if @trade.save
+      redirect_to @trade, notice: "Trade for #{@trade.player.proper_name} has been posted."
+    else
+      render :new
+    end
   end
 
   def update
@@ -27,6 +36,6 @@ class TradesController < ApplicationController
   end
 
   def trade_params
-    params.require(:trade).permit(:player_id)
+    params.require(:trade).permit(:player_id).merge({user_id: current_user.id})
   end
 end

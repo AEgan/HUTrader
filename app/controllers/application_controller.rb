@@ -30,4 +30,11 @@ class ApplicationController < ActionController::Base
   def log_out
     reset_session
   end
+
+  def check_login
+    if !logged_in?
+      flash[:warning] = "You are not authorized to preform this action."
+      redirect_to :home
+    end
+  end
 end
