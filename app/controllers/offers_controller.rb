@@ -2,6 +2,8 @@ class OffersController < ApplicationController
   before_action :set_trade, only: [:new, :show, :create]
   before_action :set_offer, only: [:show]
   before_action :check_login, only: [:new, :create]
+  before_action :check_user_can_offer, only: [:new, :create]
+
   def new
     set_offer_associations
     @offer = Offer.new
@@ -34,6 +36,16 @@ class OffersController < ApplicationController
     @user = @trade.user
     @player = @trade.player
     @teams = Team.alphabetical.includes(:players)
+  end
+
+  def check_user_can_offer
+    if current_user.id == @trade.user_id
+      flash[:warning] = "You can't make an offer to your own trade."
+      return redirect_to :home
+    elsif Offer.where(user_id: current_user.id, trade_id: @trade.id).any?
+      flash[:warning] = "You have already placed a trade offer."
+      return redirect_to :home
+    end
   end
 
   def offer_params
