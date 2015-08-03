@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :offers
   end
   post 'trades/:id/cancel' => 'trades#cancel', as: :cancel_trade
+  post 'trades/:trade_id/offers/:id/accept' => 'offers#accept', as: :trade_offer_accept
   get 'players/:id' => 'players#show', as: :player
   get 'home' => 'home#index', as: :home
   get 'about' => 'home#about'

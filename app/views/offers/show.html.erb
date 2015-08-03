@@ -20,3 +20,7 @@
 <% if logged_in? && current_user.id == @offer.user_id %>
   <%= link_to "Edit Trade", edit_trade_offer_path(@trade, @offer) %>
 <% end %>
+
+<% if logged_in? && current_user.id == @trade.user_id%>
+  <%= link_to "Accept Trade", trade_offer_accept_path(@trade, @offer), method: :post %>
+<% end %>

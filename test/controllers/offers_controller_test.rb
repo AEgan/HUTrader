@@ -217,6 +217,49 @@ class OffersControllerTest < ActionController::TestCase
     assert_equal "Your offer has been updated.", flash[:notice]
   end
 
+  should "not be able to accept a trade offer if not logged in" do
+    post :accept, trade_id: @matt_mcdonagh_trade.id, id: @alex_offer_for_matt_mcdonagh.id
+    assert_not_authorized
+  end
+
+  should "not be able to accept a trade offer if not logged in as the poster" do
+    session[:user_id] = @alex.id
+    post :accept, trade_id: @matt_mcdonagh_trade.id, id: @alex_offer_for_matt_mcdonagh.id
+    assert_not_authorized
+  end
+
+  should "not be able to accept a trade offer if offer's trade id doens't match trade's id" do
+    session[:user_id] = @matt.id
+    post :accept, trade_id: @matt_mcdonagh_trade.id, id: @alex_offer_for_ryan_voracek.id
+    assert_response :missing
+  end
+
+  should "give 404 if invalid trade id" do
+    session[:user_id] = @matt.id
+    post :accept, trade_id: -1, id: @alex_offer_for_ryan_voracek.id
+    assert_response :missing
+  end
+
+  should "not be able to accept a trade offer if offer's trade id doens't match trade's id" do
+    session[:user_id] = @matt.id
+    post :accept, trade_id: @matt_mcdonagh_trade.id, id: -1
+    assert_response :missing
+  end
+
+  should "be able to accept a trade offer if authorized" do
+    session[:user_id] = @alex.id
+    post :accept, trade_id: @alex_giroux_trade.id, id: @john_offer_for_alex_giroux.id
+    assert_response :redirect
+    assert_equal "You have accepted this offer.", flash[:notice]
+    @alex_giroux_trade.reload
+    assert_equal @john.id, @alex_giroux_trade.partner_id
+    assert_not_nil assigns(@trade)
+    assert_not_nil assigns(@user)
+    assert_not_nil assigns(@player)
+    assert_not_nil assigns(@partner)
+    assert_not_nil assigns(@offers)
+  end
+
   private
   def assert_offering_for_own_trade
     assert_response :redirect

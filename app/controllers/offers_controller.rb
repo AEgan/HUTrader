@@ -1,7 +1,7 @@
 class OffersController < ApplicationController
-  before_action :set_trade, only: [:new, :show, :create, :edit, :update]
-  before_action :set_offer, only: [:show, :edit, :update]
-  before_action :check_login, only: [:new, :create, :edit, :update]
+  before_action :set_trade, only: [:new, :show, :create, :edit, :update, :accept]
+  before_action :set_offer, only: [:show, :edit, :update, :accept]
+  before_action :check_login, only: [:new, :create, :edit, :update, :accept]
   before_action :check_not_trade_creator, only: [:new, :create, :edit, :update]
   before_action :check_user_has_not_offered, only: [:new, :create]
   before_action :set_offer_associations, only: [:new, :edit]
@@ -35,6 +35,18 @@ class OffersController < ApplicationController
     else
       set_offer_associations
       render 'edit'
+    end
+  end
+
+  def accept
+    if current_user.id != @trade.user_id
+      flash[:warning] = "You are not authorized to perform this action."
+      return redirect_to :home
+    else
+      @trade.partner_id = @offer.user_id
+      @trade.status = Trade::STATUSES['partnered']
+      @trade.save
+      redirect_to @trade, notice: "You have accepted this offer."
     end
   end
 
