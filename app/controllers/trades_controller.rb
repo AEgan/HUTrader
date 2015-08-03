@@ -11,11 +11,12 @@ class TradesController < ApplicationController
     @user = @trade.user
     @partner = @trade.partner
     @player = @trade.player
+    @offers = @trade.offers.includes(:players, :user)
   end
 
   def cancel
     if !logged_in? || current_user.id != @trade.user_id || @trade.status != Trade::STATUSES['open']
-      flash[:warning] = "You are not authorized to perform this action." 
+      flash[:warning] = "You are not authorized to perform this action."
       redirect_to :home
     else
       @trade.status = Trade::STATUSES['closed']

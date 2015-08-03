@@ -1,0 +1,12 @@
+<%= simple_nested_form_for [@trade, @offer] do |offer_form| %>
+  <%= offer_form.input :coins, input_html: { step: 50 } %>
+  <div id="offer-players">
+    <%= offer_form.simple_fields_for :offer_players do |offer_player_form| %>
+      <%= offer_player_form.input :player_id, as: :grouped_select, collection: @teams, group_method: :players %>
+    <% end %>
+  </div>
+  <p>
+    <%= offer_form.link_to_add("Add Player", :offer_players, data: { target: "#offer-players" }) %>
+  </p>
+  <%= offer_form.submit nil, class: 'btn blue' %>
+<% end %>

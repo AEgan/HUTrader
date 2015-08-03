@@ -56,20 +56,28 @@ class TradesControllerTest < ActionController::TestCase
     assert_equal "Trade for #{@tavares.proper_name} has been posted.", flash[:notice]
   end
 
-  should "successfully get trade information" do
-    get :show, id: @alex_giroux_trade.id
-    assert_response :success
-    assert_not_nil assigns(:trade)
-    assert_not_nil assigns(:user)
-    assert_not_nil assigns(:player)
-  end
+  context "with trade offers" do
+    setup do
+      create_offers
+    end
+    teardown do
+      destroy_offers
+    end
 
-  should "include the trade partners information if available" do
-    create_offers
-    get :show, id: @ryan_voracek_trade.id
-    assert_response :success
-    assert_not_nil assigns(:partner)
-    destroy_offers
+    should "successfully get trade information" do
+      get :show, id: @alex_giroux_trade.id
+      assert_response :success
+      assert_not_nil assigns(:trade)
+      assert_not_nil assigns(:user)
+      assert_not_nil assigns(:player)
+      assert_not_nil assigns(:offers)
+    end
+
+    should "include the trade partners information if available" do
+      get :show, id: @ryan_voracek_trade.id
+      assert_response :success
+      assert_not_nil assigns(:partner)
+    end
   end
 
   should "respond with a 404 if a trade is not found" do

@@ -41,6 +41,8 @@ gem 'puma'
 # simple form because it's nice
 gem 'simple_form', '~> 3.1'
 
+gem 'nested_form', '0.3.2'
+
 # materialize is nice as well
 gem 'materialize-sass'
 
