@@ -23,6 +23,7 @@ class OffersController < ApplicationController
   end
 
   def show
+    @players = @offer.players
   end
 
   def edit

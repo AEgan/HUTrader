@@ -147,6 +147,14 @@ class OffersControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
+  should "get the show page if the offer and trade are valid" do
+    get :show, trade_id: @matt_mcdonagh_trade, id: @alex_offer_for_matt_mcdonagh.id
+    assert_response :success
+    assert_not_nil assigns(:offer)
+    assert_not_nil assigns(:trade)
+    assert_not_nil assigns(:players)
+  end
+
   should "be able to get the edit page if authorized" do
     session[:user_id] = @alex.id
     get :edit, trade_id: @matt_mcdonagh_trade.id, id: @alex_offer_for_matt_mcdonagh.id
