@@ -106,7 +106,7 @@ class OffersControllerTest < ActionController::TestCase
 
   context "with a set of offers in place" do
     setup do
-      create_offeres
+      create_offers
     end
     teardown do
       destroy_offers

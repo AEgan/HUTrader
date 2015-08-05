@@ -3,7 +3,7 @@
 <p>Email: <%= @user.email %></p>
 <p>Console: <%= @user.console_name %></p>
 <p>Team Name: <%= @user.team_name %></p>
-<p>Reputation: <%= @user.reputation.nil? ? "No reviews yet" : @user.reputation %></p>
+<p>Reputation: <%= @user.reputation.blank? ? "No reviews yet" : @user.reputation %></p>
 
 <% if logged_in? && @user.id == current_user.id %>
   <%= link_to "Edit", edit_user_path(@user), class: 'btn blue' %>

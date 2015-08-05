@@ -15,7 +15,7 @@ class TradesController < ApplicationController
   end
 
   def cancel
-    if !logged_in? || current_user.id != @trade.user_id || @trade.status != Trade::STATUSES['open']
+    if !logged_in? || !current_user_posted_trade || @trade.status != Trade::STATUSES['open']
       return authorization_failure
     else
       @trade.status = Trade::STATUSES['closed']

@@ -10,7 +10,7 @@ class OfferPlayerTest < ActiveSupport::TestCase
       create_teams
       create_players
       create_trades
-      create_offeres
+      create_offers
       create_offer_players
     end
 

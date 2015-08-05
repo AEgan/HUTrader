@@ -18,7 +18,7 @@ class OfferTest < ActiveSupport::TestCase
       create_teams
       create_players
       create_trades
-      create_offeres
+      create_offers
     end
 
     teardown do

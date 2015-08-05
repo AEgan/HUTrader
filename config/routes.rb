@@ -2,9 +2,9 @@ Rails.application.routes.draw do
 
   get 'sessions/new'
   post 'sessions' => 'sessions#create'
-  resources :users, only: [:show, :new, :edit, :update, :create]
+  resources :users, except: [:index, :destroy]
   resources :teams, only: [:show, :index]
-  resources :trades, only: [:index, :show, :new, :edit, :update, :create] do
+  resources :trades, except: [:destroy] do
     resources :offers
   end
   post 'trades/:id/cancel' => 'trades#cancel', as: :cancel_trade

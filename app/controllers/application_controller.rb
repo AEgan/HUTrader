@@ -27,6 +27,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :logged_in?
 
+  def current_user_posted_trade
+    current_user.id == @trade.user_id
+  end
+  helper_method :current_user_posted_trade
+
   def log_out
     reset_session
   end

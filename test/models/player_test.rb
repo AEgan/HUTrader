@@ -53,7 +53,7 @@ class PlayerTest < ActiveSupport::TestCase
     should "be able to add offers to a player using a join table" do
       create_users
       create_trades
-      create_offeres
+      create_offers
       @giroux.offers << @john_offer_for_ryan_voracek
       @giroux.offers << @ryan_offer_for_matt_mcdonagh
       assert_equal 2, @giroux.offers.length

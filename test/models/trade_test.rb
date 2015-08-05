@@ -53,7 +53,7 @@ class TradeTest < ActiveSupport::TestCase
 
     context "with offers for trades" do
       setup do
-        create_offeres
+        create_offers
       end
       teardown do
         destroy_offers

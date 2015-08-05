@@ -90,7 +90,7 @@ class TradesControllerTest < ActionController::TestCase
 
   context "with trade offers" do
     setup do
-      create_offeres
+      create_offers
     end
     teardown do
       destroy_offers

@@ -1,7 +1,7 @@
 class OffersController < ApplicationController
-  before_action :set_trade, only: [:new, :show, :create, :edit, :update, :accept]
-  before_action :set_offer, only: [:show, :edit, :update, :accept]
-  before_action :check_login, only: [:new, :create, :edit, :update, :accept]
+  before_action :set_trade
+  before_action :set_offer, except: [:new, :create]
+  before_action :check_login, except: :show
   before_action :check_not_trade_creator, only: [:new, :create, :edit, :update]
   before_action :check_user_has_not_offered, only: [:create]
   before_action :check_user_on_same_console, only: [:new, :create]
@@ -45,7 +45,7 @@ class OffersController < ApplicationController
   end
 
   def accept
-    if current_user.id != @trade.user_id
+    if !current_user_posted_trade
       return authorization_failure
     else
       @trade.partner_id = @offer.user_id
@@ -90,14 +90,14 @@ class OffersController < ApplicationController
   end
 
   def check_not_trade_creator
-    if current_user.id == @trade.user_id
+    if current_user_posted_trade
       return authorization_failure("You can't make an offer to your own trade.")
     end
   end
 
   def check_user_on_same_console
     user = @trade.user
-    if !logged_in? || current_user.console != user.console
+    if current_user.console != user.console
       return authorization_failure("This trade is for #{user.console_name}")
     end
   end

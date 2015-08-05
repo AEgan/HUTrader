@@ -1,6 +1,6 @@
 module Contexts
   module OfferContexts
-    def create_offeres
+    def create_offers
       @mike_offer_for_alex_giroux = FactoryGirl.create(:offer, trade: @alex_giroux_trade, user: @mike, coins: 5000)
       @alex_offer_for_mike_giroux = FactoryGirl.create(:offer, trade: @mike_giroux_trade, user: @alex, coins: 15000)
       @john_offer_for_ryan_voracek = FactoryGirl.create(:offer, trade: @ryan_voracek_trade, user: @john)
