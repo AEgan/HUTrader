@@ -6,6 +6,7 @@ Feature: Trading
     Given a setup of trades
 
   Scenario: Viewing all open trades
+    Given a setup of offers
     When I go to the trades page
     Then I should see "All"
     And I should see "Playstation"
@@ -97,7 +98,7 @@ Feature: Trading
     Given a setup of offers
     When I go to Matt's McDonagh trade page
     Then I should see "This trade is for Xbox One"
-    And I should see "matt and egan have completed the trade."
+    And I should see "matt and ryan have completed the trade."
 
   Scenario: The user name is a link to the user's page
     When I go to Alex's Giroux trade page

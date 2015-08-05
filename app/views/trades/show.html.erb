@@ -59,7 +59,7 @@
       </tbody>
     </table>
   <% end%>
-  <% if logged_in? && current_user.id != @trade.user_id && @trade.status == Trade::STATUSES['open'] %>
+  <% if user_can_offer_trade? %>
     <%= link_to "Offer Trade", new_trade_offer_path(@trade) %>
   <% end %>
 </div>

@@ -18,7 +18,7 @@ class OfferTest < ActiveSupport::TestCase
       create_teams
       create_players
       create_trades
-      create_offers
+      create_offeres
     end
 
     teardown do
@@ -48,14 +48,19 @@ class OfferTest < ActiveSupport::TestCase
     end
 
     should "not let an offer be created if it is a repeat (same user and trade)" do
-      repeat = FactoryGirl.build(:offer, trade: @alex_giroux_trade, user: @john)
+      repeat = FactoryGirl.build(:offer, trade: @alex_giroux_trade, user: @mike)
       deny repeat.valid?
     end
 
     should "be able to add players to an offer using the join table" do
-      @john_offer_for_alex_giroux.players << @voracek
-      @john_offer_for_alex_giroux.players << @mcdonagh
-      assert_equal 2, @john_offer_for_alex_giroux.players.length
+      @mike_offer_for_alex_giroux.players << @voracek
+      @mike_offer_for_alex_giroux.players << @mcdonagh
+      assert_equal 2, @mike_offer_for_alex_giroux.players.length
+    end
+
+    should "not be able to create an offer if the trade is no longer open" do
+      offer_for_complete = FactoryGirl.build(:offer, trade: @ryan_voracek_trade, user: @john)
+      deny offer_for_complete.valid?
     end
   end
 end

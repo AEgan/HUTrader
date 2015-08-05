@@ -8,7 +8,7 @@ Feature: Trading
   Scenario: Viewing Trade offers
     When I go to Alex's Giroux trade page
     Then I should see "Offers" within "#offers-detail-area"
-    And I should see "joz"
+    And I should see "mike"
     And I should see "5000"
     And I should see "Voracek"
     And I should see "Tavares"
@@ -29,11 +29,11 @@ Feature: Trading
     And I should see "Accept Offer"
     And I click on the link "Accept Offer"
     And I should see "You have accepted this offer."
-    And I should see "egan has selected joz's offer."
+    And I should see "egan has selected mike's offer."
 
   Scenario: Can see a single offer's details
-    When I go to John's offer page
-    Then I should see "joz's Offer"
+    When I go to Mike's offer page
+    Then I should see "mike's Offer"
     And I should see "Coins: 5000"
     And I should see "Players"
     And I should see "John Tavares"
@@ -47,27 +47,33 @@ Feature: Trading
 
   Scenario: Can accept an offer from the details page
     Given a logged-in user
-    When I go to John's offer page
-    Then I should see "joz's Offer"
+    When I go to Mike's offer page
+    Then I should see "mike's Offer"
     And I should not see "Edit Trade"
     And I should see "Accept Offer"
     And I click on the link "Accept Offer"
     And I should see "You have accepted this offer."
-    And I should see "egan has selected joz's offer."
+    And I should see "egan has selected mike's offer."
 
   Scenario: Can create a trade offer
     Given a logged-in xbox user
-    When I go to Alex's Giroux trade page
+    When I go to John's Tavares trade page
     Then I click on the link "Offer Trade"
     And I fill in "offer_coins" with "5000"
     And I select "Voracek, Jakub" from "offer_offer_players_attributes_0_player_id"
     And I press "Create Offer"
     Then I should see "Your offer has been posted."
 
+  Scenario: Can't see offer trade button if different console
+    Given a logged-in xbox user
+    When I go to Alex's Giroux trade page
+    Then I should see "This trade is for Playstation 4"
+    And I should not see "Offer Trade"
+
   @javascript
   Scenario: Adding a second player to a trade
     Given a logged-in xbox user
-    When I go to Alex's Giroux trade page
+    When I go to John's Tavares trade page
     Then I click on the link "Offer Trade"
     And I fill in "offer_coins" with "5000"
     And I select "Voracek, Jakub" from "offer_offer_players_attributes_0_player_id"
@@ -85,7 +91,7 @@ Feature: Trading
   @javascript
   Scenario: Removing a player from a trade offer
     Given a logged-in xbox user
-    When I go to Alex's Giroux trade page
+    When I go to John's Tavares trade page
     Then I click on the link "Offer Trade"
     And I fill in "offer_coins" with "5000"
     And I select "Voracek, Jakub" from "offer_offer_players_attributes_0_player_id"

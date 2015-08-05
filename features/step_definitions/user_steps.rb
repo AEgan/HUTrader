@@ -33,7 +33,7 @@ Given /^a setup of trades$/ do
 end
 
 Given /^a setup of offers$/ do
-  create_offers
+  create_offeres
 end
 
 Given /^a full setup$/ do
@@ -41,7 +41,7 @@ Given /^a full setup$/ do
   create_teams
   create_players
   create_trades
-  create_offers
+  create_offeres
   create_offer_players
 end
 

@@ -10,7 +10,7 @@ class OfferPlayerTest < ActiveSupport::TestCase
       create_teams
       create_players
       create_trades
-      create_offers
+      create_offeres
       create_offer_players
     end
 
@@ -24,12 +24,12 @@ class OfferPlayerTest < ActiveSupport::TestCase
     end
 
     should "not allow a fifth player on an offer" do
-      fifth_offer = FactoryGirl.build(:offer_player, offer: @john_offer_for_alex_giroux, player: @tavares)
+      fifth_offer = FactoryGirl.build(:offer_player, offer: @mike_offer_for_alex_giroux, player: @tavares)
       deny fifth_offer.valid?
     end
 
     should "not allow an offer player to be created without a valid player" do
-      no_player = FactoryGirl.build(:offer_player, player: nil, offer: @john_offer_for_alex_giroux)
+      no_player = FactoryGirl.build(:offer_player, player: nil, offer: @mike_offer_for_alex_giroux)
       deny no_player.valid?
     end
   end

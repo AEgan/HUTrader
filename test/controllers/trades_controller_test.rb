@@ -56,30 +56,6 @@ class TradesControllerTest < ActionController::TestCase
     assert_equal "Trade for #{@tavares.proper_name} has been posted.", flash[:notice]
   end
 
-  context "with trade offers" do
-    setup do
-      create_offers
-    end
-    teardown do
-      destroy_offers
-    end
-
-    should "successfully get trade information" do
-      get :show, id: @alex_giroux_trade.id
-      assert_response :success
-      assert_not_nil assigns(:trade)
-      assert_not_nil assigns(:user)
-      assert_not_nil assigns(:player)
-      assert_not_nil assigns(:offers)
-    end
-
-    should "include the trade partners information if available" do
-      get :show, id: @ryan_voracek_trade.id
-      assert_response :success
-      assert_not_nil assigns(:partner)
-    end
-  end
-
   should "respond with a 404 if a trade is not found" do
     get :show, id: -1
     assert_response :missing
@@ -105,9 +81,33 @@ class TradesControllerTest < ActionController::TestCase
     assert @alex_giroux_trade.status == Trade::STATUSES['closed']
   end
 
-  should "not be able to cancel a trade if it's already been completed" do
-    session[:user_id] = @matt.id
-    post :cancel, id: @matt_mcdonagh_trade.id
-    assert_not_authorized
+  context "with trade offers" do
+    setup do
+      create_offeres
+    end
+    teardown do
+      destroy_offers
+    end
+
+    should "successfully get trade information" do
+      get :show, id: @alex_giroux_trade.id
+      assert_response :success
+      assert_not_nil assigns(:trade)
+      assert_not_nil assigns(:user)
+      assert_not_nil assigns(:player)
+      assert_not_nil assigns(:offers)
+    end
+
+    should "include the trade partners information if available" do
+      get :show, id: @ryan_voracek_trade.id
+      assert_response :success
+      assert_not_nil assigns(:partner)
+    end
+
+    should "not be able to cancel a trade if it's already been completed" do
+      session[:user_id] = @matt.id
+      post :cancel, id: @matt_mcdonagh_trade.id
+      assert_not_authorized
+    end
   end
 end

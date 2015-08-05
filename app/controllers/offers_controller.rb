@@ -4,6 +4,7 @@ class OffersController < ApplicationController
   before_action :check_login, only: [:new, :create, :edit, :update, :accept]
   before_action :check_not_trade_creator, only: [:new, :create, :edit, :update]
   before_action :check_user_has_not_offered, only: [:new, :create]
+  before_action :check_user_on_same_console, only: [:new, :create]
   before_action :set_offer_associations, only: [:new, :edit]
   before_action :check_correct_user, only: [:edit, :update]
 
@@ -85,6 +86,14 @@ class OffersController < ApplicationController
   def check_not_trade_creator
     if current_user.id == @trade.user_id
       flash[:warning] = "You can't make an offer to your own trade."
+      return redirect_to :home
+    end
+  end
+
+  def check_user_on_same_console
+    user = @trade.user
+    if !logged_in? || current_user.console != user.console
+      flash[:warning] = "This trade is for #{user.console_name}"
       return redirect_to :home
     end
   end

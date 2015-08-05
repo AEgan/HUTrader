@@ -28,10 +28,12 @@ module NavigationHelpers
       new_trade_path
     when /Alex's Giroux trade page/
       trade_path(@alex_giroux_trade)
+    when /John's Tavares trade page/
+      trade_path(@john_tavares_trade)
     when /Matt's McDonagh trade page/
       trade_path(@matt_mcdonagh_trade)
-    when /John's offer page/
-      trade_offer_path(@alex_giroux_trade, @john_offer_for_alex_giroux)
+    when /Mike's offer page/
+      trade_offer_path(@alex_giroux_trade, @mike_offer_for_alex_giroux)
     else
       begin
         page_name =~ /the (.*) page/
