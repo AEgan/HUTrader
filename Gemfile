@@ -66,6 +66,7 @@ group :test do
   gem 'minitest-reporters', '1.0.19'
   gem 'capybara'
   gem 'cucumber-rails', '1.4.2', require: false
+  gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'launchy'
 end

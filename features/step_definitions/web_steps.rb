@@ -96,6 +96,11 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   end
 end
 
+Then(/^I select "(.*?)" from the nested form$/) do |value|
+  nested_fields_select = all('select.grouped_select').last
+  select(value, :from => nested_fields_select[:id])
+end
+
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should

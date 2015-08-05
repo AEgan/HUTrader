@@ -36,6 +36,15 @@ Given /^a setup of offers$/ do
   create_offers
 end
 
+Given /^a full setup$/ do
+  create_users
+  create_teams
+  create_players
+  create_trades
+  create_offers
+  create_offer_players
+end
+
 Given /^no setup yet$/ do
   # assumes initial setup already run as background
   destroy_users

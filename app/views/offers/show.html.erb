@@ -1,26 +1,31 @@
 <h1><%= @offer.user.username %>'s Offer</h1>
 <em>Coins: <%= @offer.coins %></em>
-<table>
-  <thead>
-    <th>Player</th>
-    <th>Overall</th>
-    <th></th>
-  </thead>
-  <tbody>
-    <% @players.each do |player| %>
-      <tr>
-        <td><%= link_to player.proper_name, player %></td>
-        <td><%= player.overall %></td>
-        <td><%= link_to "Details", player %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if @players.empty? %>
+  There are no players associated with this trade
+<% else %>
+  <h2>Players</h2>
+  <table>
+    <thead>
+      <th>Player</th>
+      <th>Overall</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @players.each do |player| %>
+        <tr>
+          <td><%= link_to player.proper_name, player %></td>
+          <td><%= player.overall %></td>
+          <td><%= link_to "Details", player %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 <%= link_to "Trade Details", @trade %>
 <% if logged_in? && current_user.id == @offer.user_id %>
-  <%= link_to "Edit Trade", edit_trade_offer_path(@trade, @offer) %>
+  <%= link_to "Edit Offer", edit_trade_offer_path(@trade, @offer) %>
 <% end %>
 
 <% if logged_in? && current_user.id == @trade.user_id%>
-  <%= link_to "Accept Trade", trade_offer_accept_path(@trade, @offer), method: :post %>
+  <%= link_to "Accept Offer", trade_offer_accept_path(@trade, @offer), method: :post %>
 <% end %>
