@@ -33,8 +33,12 @@ class ApplicationController < ActionController::Base
 
   def check_login
     if !logged_in?
-      flash[:warning] = "You are not authorized to perform this action."
-      redirect_to :home
+      return authorization_failure
     end
+  end
+
+  def authorization_failure(msg = "You are not authorized to perform this action.")
+    flash[:warning] = msg
+    redirect_to :home
   end
 end

@@ -16,8 +16,7 @@ class TradesController < ApplicationController
 
   def cancel
     if !logged_in? || current_user.id != @trade.user_id || @trade.status != Trade::STATUSES['open']
-      flash[:warning] = "You are not authorized to perform this action."
-      redirect_to :home
+      return authorization_failure
     else
       @trade.status = Trade::STATUSES['closed']
       @trade.save

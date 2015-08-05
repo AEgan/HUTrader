@@ -41,8 +41,7 @@ class OffersController < ApplicationController
 
   def accept
     if current_user.id != @trade.user_id
-      flash[:warning] = "You are not authorized to perform this action."
-      return redirect_to :home
+      return authorization_failure
     else
       @trade.partner_id = @offer.user_id
       @trade.status = Trade::STATUSES['partnered']
@@ -71,30 +70,26 @@ class OffersController < ApplicationController
 
   def check_user_has_not_offered
     if Offer.where(user_id: current_user.id, trade_id: @trade.id).any?
-      flash[:warning] = "You have already placed a trade offer."
-      return redirect_to :home
+      return authorization_failure("You have already placed a trade offer.")
     end
   end
 
   def check_correct_user
     if current_user.id != @offer.user_id
-      flash[:warning] = "You are not authorized to perform this action."
-      redirect_to :home
+      return authorization_failure
     end
   end
 
   def check_not_trade_creator
     if current_user.id == @trade.user_id
-      flash[:warning] = "You can't make an offer to your own trade."
-      return redirect_to :home
+      return authorization_failure("You can't make an offer to your own trade.")
     end
   end
 
   def check_user_on_same_console
     user = @trade.user
     if !logged_in? || current_user.console != user.console
-      flash[:warning] = "This trade is for #{user.console_name}"
-      return redirect_to :home
+      return authorization_failure("This trade is for #{user.console_name}")
     end
   end
 
