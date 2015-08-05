@@ -81,6 +81,13 @@ class TradesControllerTest < ActionController::TestCase
     assert @alex_giroux_trade.status == Trade::STATUSES['closed']
   end
 
+  should "render the edit page" do
+    get :edit, id: @alex_giroux_trade.id
+    assert_response :success
+    assert_template :edit
+    assert_not_nil assigns(:trade)
+  end
+
   context "with trade offers" do
     setup do
       create_offeres
