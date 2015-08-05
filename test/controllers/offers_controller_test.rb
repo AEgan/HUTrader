@@ -112,17 +112,17 @@ class OffersControllerTest < ActionController::TestCase
       destroy_offers
     end
 
-    # TODO redirect to edit offer page, once edit/update implemented
     should "be redirected and alerted if you've already offered a trade" do
       session[:user_id] = @alex.id
       get :new, trade_id: @mike_giroux_trade.id
-      assert_offering_repeat_trade
+      assert_redirected_to edit_trade_offer_path(@mike_giroux_trade, @alex_offer_for_mike_giroux)
     end
 
     should "be redirected and alerted if already created an offer for a trade" do
       session[:user_id] = @ryan.id
       post :create, trade_id: @matt_mcdonagh_trade, offer: {}
-      assert_offering_repeat_trade
+      assert_response :redirect
+      assert_equal "You have already placed a trade offer.", flash[:warning]
     end
     should "not be able to get the edit page if not logged in" do
       get :edit, trade_id: @matt_mcdonagh_trade.id, id: @ryan_offer_for_matt_mcdonagh.id
@@ -277,10 +277,5 @@ class OffersControllerTest < ActionController::TestCase
   def assert_offering_for_own_trade
     assert_response :redirect
     assert_equal "You can't make an offer to your own trade.", flash[:warning]
-  end
-
-  def assert_offering_repeat_trade
-    assert_response :redirect
-    assert_equal "You have already placed a trade offer.", flash[:warning]
   end
 end

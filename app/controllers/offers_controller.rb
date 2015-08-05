@@ -3,14 +3,19 @@ class OffersController < ApplicationController
   before_action :set_offer, only: [:show, :edit, :update, :accept]
   before_action :check_login, only: [:new, :create, :edit, :update, :accept]
   before_action :check_not_trade_creator, only: [:new, :create, :edit, :update]
-  before_action :check_user_has_not_offered, only: [:new, :create]
+  before_action :check_user_has_not_offered, only: [:create]
   before_action :check_user_on_same_console, only: [:new, :create]
   before_action :set_offer_associations, only: [:new, :edit]
   before_action :check_correct_user, only: [:edit, :update]
 
   def new
-    @offer = Offer.new
-    @offer.offer_players.build
+    users_offer = current_users_offers
+    if current_users_offers.any?
+      redirect_to edit_trade_offer_path(@trade, current_users_offers.first)
+    else
+      @offer = Offer.new
+      @offer.offer_players.build
+    end
   end
 
   def create
@@ -69,9 +74,13 @@ class OffersController < ApplicationController
   end
 
   def check_user_has_not_offered
-    if Offer.where(user_id: current_user.id, trade_id: @trade.id).any?
+    if current_users_offers.any?
       return authorization_failure("You have already placed a trade offer.")
     end
+  end
+
+  def current_users_offers
+    Offer.where(user_id: current_user.id, trade_id: @trade.id)
   end
 
   def check_correct_user
