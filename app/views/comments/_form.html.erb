@@ -1,0 +1,8 @@
+<%= simple_form_for [@trade, @offer, @comment] do |f| %>
+  <div class="input-field">
+    <%= f.input :body %>
+  </div>
+  <div class="input-field">
+    <%= f.submit nil, class: "btn blue" %>
+  </div>
+<% end %>
