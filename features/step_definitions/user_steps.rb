@@ -8,6 +8,13 @@ Given /^a logged-in user$/ do
   click_button("Log In")
 end
 
+Given /^a logged-in xbox user$/ do
+  visit login_path
+  fill_in "username", with: "ryan"
+  fill_in "password", with: "secret"
+  click_button("Log In")
+end
+
 Given /^an initial setup$/ do
   create_users
 end
@@ -16,6 +23,26 @@ Given /^a setup of teams and players$/ do
   create_users
   create_teams
   create_players
+end
+
+Given /^a setup of trades$/ do
+  create_users
+  create_teams
+  create_players
+  create_trades
+end
+
+Given /^a setup of offers$/ do
+  create_offers
+end
+
+Given /^a full setup$/ do
+  create_users
+  create_teams
+  create_players
+  create_trades
+  create_offers
+  create_offer_players
 end
 
 Given /^no setup yet$/ do

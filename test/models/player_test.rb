@@ -4,7 +4,8 @@ class PlayerTest < ActiveSupport::TestCase
   # relationships
   should belong_to(:team)
   should have_many(:trades).dependent(:destroy)
-  should have_and_belong_to_many(:offers)
+  should have_many(:offer_players)
+  should have_many(:offers).through(:offer_players)
 
   # validation tests
   should validate_presence_of(:first_name)
@@ -53,8 +54,8 @@ class PlayerTest < ActiveSupport::TestCase
       create_users
       create_trades
       create_offers
-      @giroux.offers << @alex_offer_for_ryan_voracek
-      @giroux.offers << @alex_offer_for_matt_mcdonagh
+      @giroux.offers << @john_offer_for_ryan_voracek
+      @giroux.offers << @ryan_offer_for_matt_mcdonagh
       assert_equal 2, @giroux.offers.length
       destroy_offers
       destroy_trades

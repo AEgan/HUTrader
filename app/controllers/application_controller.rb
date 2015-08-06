@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
   end
   helper_method :current_user
 
@@ -27,7 +27,23 @@ class ApplicationController < ActionController::Base
   end
   helper_method :logged_in?
 
+  def current_user_posted_trade
+    current_user.id == @trade.user_id
+  end
+  helper_method :current_user_posted_trade
+
   def log_out
     reset_session
+  end
+
+  def check_login
+    if !logged_in?
+      return authorization_failure
+    end
+  end
+
+  def authorization_failure(msg = "You are not authorized to perform this action.")
+    flash[:warning] = msg
+    redirect_to :home
   end
 end

@@ -14,6 +14,11 @@ class ActiveSupport::TestCase
   def deny(assertion, message="no message given")
     assert(!assertion, message)
   end
+
+  def assert_not_authorized
+    assert_equal "You are not authorized to perform this action.", flash[:warning]
+    assert_redirected_to :home
+  end
 end
 # Because I like Turn's outline format but the gem is no longer supported
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new

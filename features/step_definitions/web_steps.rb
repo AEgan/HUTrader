@@ -32,6 +32,10 @@ When /^(?:|I )click on the link "([^"]*)"/ do |link_name|
   click_link "#{link_name}"
 end
 
+When /^(?:|I )click on the first link "([^"]*)"/ do |link_name|
+  first(:link, link_name).click
+end
+
 When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
 end
@@ -90,6 +94,11 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   else
     assert page.has_no_xpath?('//*', :text => regexp)
   end
+end
+
+Then(/^I select "(.*?)" from the nested form$/) do |value|
+  nested_fields_select = all('select.grouped_select').last
+  select(value, :from => nested_fields_select[:id])
 end
 
 Then /^(?:|I )should be on (.+)$/ do |page_name|

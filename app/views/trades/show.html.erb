@@ -1,0 +1,65 @@
+<h1>Trade Details</h1>
+<p>
+  This trade is for <span class="<%= @trade.user.xbox_user? ? 'green' : 'blue'%> white-text"><%= @user.console_name %></span>
+</p>
+<p>
+  Player: <%= link_to @player.proper_name, @player %>
+</p>
+<p>
+  Team Name: <%= @user.team_name %>
+</p>
+<p>
+  HUTrader username: <%= link_to @user.username, @user %>
+</p>
+<p>
+  <% if @trade.status == "Open" %>
+    This trade is open to offers.
+  <% elsif @trade.status == "Closed" %>
+    This trade has been cancelled by <%= @user.username %>.
+  <% elsif @trade.status == "Complete" %>
+    <%= @user.username %> and <%= link_to @partner.username, @partner %> have completed the trade.
+  <% else %>
+    <%= @user.username %> has selected <%= link_to @partner.username, @partner %>'s offer.
+  <% end%>
+</p>
+<% if logged_in? && current_user_posted_trade && @trade.status == Trade::STATUSES['open'] %>
+<p>
+  <%= link_to "Cancel this trade", cancel_trade_path(@trade), method: :post %>
+</p>
+<% end %>
+<div id="offers-detail-area">
+  <h3>Offers</h3>
+  <% if @offers.empty? %>
+  <p>
+    There currently no trade offers.
+  </p>
+  <% else %>
+    <table>
+      <thead>
+        <th>User</th>
+        <th>Player(s)</th>
+        <th>Coins</th>
+        <th></th>
+        <% if logged_in? && current_user_posted_trade %>
+          <th></th>
+        <% end %>
+      </thead>
+      <tbody>
+        <% @offers.each do |offer| %>
+          <tr>
+            <td><%= offer.user.username %></td>
+            <td><%= offer.players.map(&:proper_name).to_sentence %></td>
+            <td><%= offer.coins %></td>
+            <td><%= link_to "View Offer", trade_offer_path(@trade, offer)%></td>
+            <% if logged_in? && current_user_posted_trade  && @trade.partner_id.nil? %>
+              <th><%= link_to "Accept Offer", trade_offer_accept_path(@trade, offer), method: :post %></th>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end%>
+  <% if user_can_offer_trade? %>
+    <%= link_to "Offer Trade", new_trade_offer_path(@trade) %>
+  <% end %>
+</div>

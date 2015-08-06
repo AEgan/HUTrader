@@ -2,8 +2,13 @@ Rails.application.routes.draw do
 
   get 'sessions/new'
   post 'sessions' => 'sessions#create'
-  resources :users, only: [:show, :new, :edit, :update, :create]
+  resources :users, except: [:index, :destroy]
   resources :teams, only: [:show, :index]
+  resources :trades, except: [:destroy] do
+    resources :offers
+  end
+  post 'trades/:id/cancel' => 'trades#cancel', as: :cancel_trade
+  post 'trades/:trade_id/offers/:id/accept' => 'offers#accept', as: :trade_offer_accept
   get 'players/:id' => 'players#show', as: :player
   get 'home' => 'home#index', as: :home
   get 'about' => 'home#about'

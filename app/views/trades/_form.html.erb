@@ -1,0 +1,9 @@
+<%= simple_form_for @trade do |f| %>
+  <%= f.error_notification %>
+  <div class='input-field'>
+    <%= f.association :player, as: :grouped_select, collection: @teams, group_method: :players, prompt: "Player", label: false %>
+  </div>
+  <div class='input-field'>
+    <%= f.submit nil, class: 'btn blue' %>
+  </div>
+<% end %>

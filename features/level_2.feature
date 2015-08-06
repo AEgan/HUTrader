@@ -33,7 +33,7 @@ Feature: Manage customers
     And I should not see "Sign Up"
     And I should see "Log out"
     And I should see "Xbox One"
-    And I should see "No trades yet"
+    And I should see "No reviews yet"
     And I should see "Edit"
 
   Scenario: Should View information of a user when not logged in

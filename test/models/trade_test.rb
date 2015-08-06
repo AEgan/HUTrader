@@ -37,12 +37,8 @@ class TradeTest < ActiveSupport::TestCase
       destroy_users
     end
 
-    should "have a scope to find all open trades" do
-      assert_equal [@alex_giroux_trade, @john_tabares_trade].to_set, Trade.open.to_set
-    end
-
-    should "Have a scope to find all completed trades" do
-      assert_equal [@matt_mcdonagh_trade, @mike_giroux_trade].to_set, Trade.complete.to_set
+    should "have a scope to sort trades in order of newest to oldest" do
+      assert_equal [@john_tavares_trade, @mike_giroux_trade, @matt_mcdonagh_trade, @ryan_voracek_trade, @alex_giroux_trade], Trade.chronological
     end
 
     should "Not allow a trade to be created without a valid user" do
@@ -63,13 +59,20 @@ class TradeTest < ActiveSupport::TestCase
         destroy_offers
       end
 
+      should "have a scope to find all open trades" do
+        assert_equal [@alex_giroux_trade, @john_tavares_trade].to_set, Trade.open.to_set
+      end
+
+      should "Have a scope to find all completed trades" do
+        assert_equal [@matt_mcdonagh_trade, @mike_giroux_trade].to_set, Trade.complete.to_set
+      end
+
       should "have a method to get the offer that has been accepted for the trade" do
-        assert_equal @alex_offer_for_ryan_voracek, @ryan_voracek_trade.offer
-        destroy_offers
+        assert_equal @john_offer_for_ryan_voracek, @ryan_voracek_trade.offer
       end
 
       should "return nil if a trade does not have a confirmed partner" do
-        assert_nil @john_tabares_trade.offer
+        assert_nil @john_tavares_trade.offer
       end
 
       should "add an error if the partner_id is set but that user does not exist" do

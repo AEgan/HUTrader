@@ -15,7 +15,7 @@ Feature: Loggin In
     And I should see "egan@example.com"
     And I should see "Playstation 4"
     And I should see "TheHype"
-    And I should see "No trades yet"
+    And I should see "No reviews yet"
     And I should see "Edit"
     And I should see "egan" within ".nav-wrapper"
     And I should see "Log out" within ".nav-wrapper"

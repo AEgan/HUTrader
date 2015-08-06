@@ -23,6 +23,7 @@ class Trade < ActiveRecord::Base
   # scopes
   scope :open, -> { where(status: STATUSES["open"]) }
   scope :complete, -> { where(status: STATUSES["complete"]) }
+  scope :chronological, -> { order(created_at: :desc) }
 
   # gets the offer that has been accepted by using the partner_id and the trade's id
   def offer

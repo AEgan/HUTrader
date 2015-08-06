@@ -1,0 +1,33 @@
+<h1>Open Trades</h1>
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs">
+      <% if !logged_in? %>
+        <li class="tab col s3"><a class="active red-text" href="#all-trades">All</a></li>
+        <li class="tab col s3"><a class="blue-text" href="#playstation-trades">Playstation</a></li>
+        <li class="tab col s3"><a class="green-text" href="#xbox-trades">Xbox</a></li>
+      <% elsif current_user.xbox_user? %>
+        <li class="tab col s3"><a class="red-text" href="#all-trades">All</a></li>
+        <li class="tab col s3"><a class="blue-text" href="#playstation-trades">Playstation</a></li>
+        <li class="tab col s3"><a class="active green-text" href="#xbox-trades">Xbox</a></li>
+      <% else %>
+        <li class="tab col s3"><a class="red-text" href="#all-trades">All</a></li>
+        <li class="tab col s3"><a class="active blue-text" href="#playstation-trades">Playstation</a></li>
+        <li class="tab col s3"><a class="green-text" href="#xbox-trades">Xbox</a></li>
+      <% end %>
+
+    </ul>
+  </div>
+  <% if logged_in? %>
+    <%= link_to "Add new Trade", :new_trade, class: 'btn green under-slider' %>
+  <% end %>
+  <div id="all-trades" class="col s12">
+    <%= render partial: 'trade_table', locals: { trades: @open_trades, trade_header: 'All Trades' } %>
+  </div>
+  <div id="playstation-trades" class="col s12">
+    <%= render partial: 'trade_table', locals: { trades: @playstation_trades, trade_header: 'Playstation 4 Trades' } %>
+  </div>
+  <div id="xbox-trades" class="col s12">
+    <%= render partial: 'trade_table', locals: { trades: @xbox_trades, trade_header: 'Xbox One Trades' } %>
+  </div>
+</div>

@@ -43,16 +43,14 @@ class UsersController < ApplicationController
   # makes sure nobody is logged in before continuing
   def check_not_logged_in
     if logged_in?
-      flash[:warning] = "You are already logged in, so you cannot create an account."
-      redirect_to :home
+      return authorization_failure("You are already logged in, so you cannot create an account.")
     end
   end
 
   # makes sure the logged in user is the user that is being edited/updated
   def check_user_is_authorized
     if !logged_in? || current_user.id != @user.id
-      flash[:warning] = "You are not authorized to preform this action."
-      redirect_to :home
+      return authorization_failure
     end
   end
 end
