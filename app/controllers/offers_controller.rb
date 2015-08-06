@@ -30,6 +30,7 @@ class OffersController < ApplicationController
 
   def show
     @players = @offer.players
+    @comments = @offer.comments
   end
 
   def edit

@@ -43,6 +43,7 @@ Given /^a full setup$/ do
   create_trades
   create_offers
   create_offer_players
+  create_comments
 end
 
 Given /^no setup yet$/ do

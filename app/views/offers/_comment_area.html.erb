@@ -1,0 +1,25 @@
+<h3>Comments</h3>
+<% if @comments.empty? %>
+  <p>
+    This offer has no comments.
+  </p>
+<% else %>
+  <% @comments.each do |comment| %>
+    <div class="comment-box">
+      <div class="poster-name">
+        <%= comment.user.username %>
+      </div>
+      <div class="comment-body">
+        <%= comment.body %>
+      </div>
+      <% if user_posted_comment?(comment) %>
+        <div class="edit-link">
+          <%= link_to "edit", edit_trade_offer_comment_path(@trade, @offer, comment) %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+<% if user_can_post_comment? %>
+  <%= link_to "New Comment", new_trade_offer_comment_path(@trade, @offer) %>
+<% end %>

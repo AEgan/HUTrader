@@ -34,6 +34,8 @@ module NavigationHelpers
       trade_path(@matt_mcdonagh_trade)
     when /Mike's offer page/
       trade_offer_path(@alex_giroux_trade, @mike_offer_for_alex_giroux)
+    when /Matt's offer page/
+      trade_offer_path(@matt_mcdonagh_trade, @ryan_offer_for_matt_mcdonagh)
     else
       begin
         page_name =~ /the (.*) page/
