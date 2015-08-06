@@ -5,6 +5,7 @@ require './test/sets/player_contexts'
 require './test/sets/trade_contexts'
 require './test/sets/offer_contexts'
 require './test/sets/offer_player_contexts'
+require './test/sets/comment_contexts'
 module Contexts
   include Contexts::UserContexts
   include Contexts::TeamContexts
@@ -12,4 +13,5 @@ module Contexts
   include Contexts::TradeContexts
   include Contexts::OfferContexts
   include Contexts::OfferPlayerContexts
+  include Contexts::CommentContexts
 end

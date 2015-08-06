@@ -7,6 +7,7 @@ class Offer < ActiveRecord::Base
   belongs_to :user
   has_many :offer_players
   has_many :players, through: :offer_players
+  has_many :comments
 
   accepts_nested_attributes_for :offer_players,
     reject_if: lambda {|offer_player| offer_player["player_id"].blank? },
