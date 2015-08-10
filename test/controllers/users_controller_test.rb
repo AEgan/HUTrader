@@ -28,7 +28,8 @@ class UsersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:user)
     assert_not_nil assigns(:open_trades)
     assert_not_nil assigns(:all_trades)
-    assert_not_nil assigns(:offers)
+    assert_not_nil assigns(:open_offers)
+    assert_not_nil assigns(:accepted_offers)
   end
 
   should "be able to see the edit page if logged in as correct user" do

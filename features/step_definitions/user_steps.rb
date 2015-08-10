@@ -32,6 +32,12 @@ Given /^a setup of trades$/ do
   create_trades
 end
 
+Given /^a setup of trades after users$/ do
+  create_teams
+  create_players
+  create_trades
+end
+
 Given /^a setup of offers$/ do
   create_offers
 end

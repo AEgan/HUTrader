@@ -1,6 +1,5 @@
-<h2>Offers</h2>
-<% if @offers.empty? %>
-  <em>There are no offers to display</em>
+<% if offers.empty? %>
+  <em>There are no <%= description %> to display</em>
 <% else %>
   <table>
     <thead>
@@ -10,7 +9,7 @@
       <th></th>
     </thead>
     <tbody>
-      <% @offers.each do |offer| %>
+      <% offers.each do |offer| %>
         <tr>
           <td><%= link_to offer.trade.player.proper_name, offer.trade.player %></td>
           <td><%= offer.coins %></td>

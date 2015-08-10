@@ -23,6 +23,8 @@ class Offer < ActiveRecord::Base
 
   # scopes
   scope :by_coins, -> { order(coins: :desc) }
+  scope :open, -> { joins(:trade).where("trades.status LIKE '#{Trade::STATUSES['open']}'") }
+  scope :accepted, -> { joins(:trade).where("trades.partner_id = offers.user_id") }
 
   private
   # makes sure the same user can't make multiple offers to the same trade
