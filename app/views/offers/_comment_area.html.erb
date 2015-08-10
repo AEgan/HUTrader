@@ -7,13 +7,13 @@
   <% @comments.each do |comment| %>
     <div class="CommentBox">
       <% if user_posted_comment?(comment) %>
-      <div class="CommentBox-posterName userComment">
-        <%= comment.user.username %>
-        <%= link_to "edit", edit_trade_offer_comment_path(@trade, @offer, comment), class: 'right' %>
+      <div class="CommentBox-posterName CommentBox-posterName--userComment">
+        <%= link_to comment.user.username, comment.user %>
+        <%= link_to "edit", edit_trade_offer_comment_path(@trade, @offer, comment), class: 'btn-small right' %>
       </div>
       <% else %>
       <div class="CommentBox-posterName">
-        <%= comment.user.username %>
+        <%= link_to comment.user.username, comment.user %>
       </div>
       <% end %>
       <div class="CommentBox-commentBody">

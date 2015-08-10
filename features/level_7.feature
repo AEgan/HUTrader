@@ -74,3 +74,10 @@ Feature: Trading
     And I should see "I am updating this comment."
     And I should not see "Sounds like a great trade!"
     And I should see "Comment successfully updated."
+
+  Scenario: username is link to user page
+    Given a logged-in user
+    When I go to Mike's offer page
+    And I click on the link "mike"
+    Then I should see "mike"
+    And I should see "Playstation 4"

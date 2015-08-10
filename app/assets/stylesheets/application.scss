@@ -48,8 +48,15 @@ select {
     background-color: #e8f5e9;
     border-bottom: $comment-border-style;
     padding: 5px;
-    &.userComment {
+    &--userComment {
       background-color: #e3f2fd;
     }
   }
+}
+
+.btn-small {
+  border: $comment-border-style;
+  padding: 0 5px 0 5px;
+  background-color: #b3e5fc;
+  color: #ffffff;
 }
