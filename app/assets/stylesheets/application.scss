@@ -1,6 +1,8 @@
 @import "materialize/components/color";
 @import 'materialize';
 
+$comment-border-style: 1px solid #a1a1a1;
+
 .alert-box {
   border-radius: 25px;
   margin-top: 1%;
@@ -34,4 +36,20 @@ select {
 
 .under-slider {
   margin-top: 2%;
+}
+
+.CommentBox {
+  border: $comment-border-style;
+  margin-bottom: 15px;
+  &-commentBody {
+    margin: 10px;
+  }
+  &-posterName {
+    background-color: #e8f5e9;
+    border-bottom: $comment-border-style;
+    padding: 5px;
+    &.userComment {
+      background-color: #e3f2fd;
+    }
+  }
 }
