@@ -8,6 +8,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    @open_trades = @user.trades.open.includes(:offers, :player)
+    @all_trades = @user.trades.includes(:offers, :player)
+    @offers = @user.offers.includes(:trade, :players)
   end
 
   def edit

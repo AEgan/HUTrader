@@ -26,6 +26,9 @@ class UsersControllerTest < ActionController::TestCase
     get :show, id: @alex.id
     assert_response :success
     assert_not_nil assigns(:user)
+    assert_not_nil assigns(:open_trades)
+    assert_not_nil assigns(:all_trades)
+    assert_not_nil assigns(:offers)
   end
 
   should "be able to see the edit page if logged in as correct user" do

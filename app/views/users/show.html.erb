@@ -1,10 +1,37 @@
-<h1><%= @user.username %></h1>
-<p>Username: <%= @user.username %></p>
-<p>Email: <%= @user.email %></p>
-<p>Console: <%= @user.console_name %></p>
-<p>Team Name: <%= @user.team_name %></p>
-<p>Reputation: <%= @user.reputation.blank? ? "No reviews yet" : @user.reputation %></p>
+<div class="row">
+  <div class="col s12 m12 l12">
+    <h1><%= @user.username %></h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m12 l4">
+    <h2>Details</h2>
+    <p>Username: <%= @user.username %></p>
+    <p>Email: <%= @user.email %></p>
+    <p>Console: <%= @user.console_name %></p>
+    <p>Team Name: <%= @user.team_name %></p>
+    <p>Reputation: <%= @user.reputation.blank? ? "No reviews yet" : @user.reputation %></p>
 
-<% if logged_in? && @user.id == current_user.id %>
-  <%= link_to "Edit", edit_user_path(@user), class: 'btn blue' %>
-<% end%>
+    <% if logged_in? && @user.id == current_user.id %>
+      <%= link_to "Edit", edit_user_path(@user), class: 'btn blue' %>
+    <% end%>
+  </div>
+  <div class="col s12 m12 l8">
+    <h2>Trades</h2>
+    <ul class="tabs user-tabs">
+      <li class="tab col s3"><a class="active blue-text" href="#open-trades">Open Trades</a></li>
+      <li class="tab col s3"><a class="blue-text" href="#all-trades">All Trades</a></li>
+    </ul>
+    <div id="open-trades" class="col s12 m12 l8">
+      <%= render partial: 'user_trades', locals: { trades: @open_trades, description: "open trades" } %>
+    </div>
+    <div id="all-trades" class="col s12 m12 l8">
+      <%= render partial: 'user_trades', locals: { trades: @all_trades, description: "trades" } %>
+    </div>
+    <div class="row">
+      <div class="col s12 m12 l8">
+        <%= render 'user_offers' %>
+      </div>
+    </div>
+  </div>
+</div>
