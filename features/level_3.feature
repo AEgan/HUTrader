@@ -54,3 +54,16 @@ Feature: Loggin In
     And I should see "TheHype"
     And I should see "alex@example.com"
     And I should not see "egan@example.com"
+
+  Scenario: Trade and offer information available on users show page
+    Given a setup of trades after users
+    Given a setup of offers
+    Given a logged-in user
+    When I go to Egan's details page
+    Then I should see "Trades"
+    And I should see "Claude Giroux" within "#open-trades"
+    And I should see "Claude Giroux" within "#all-trades"
+    And I should see "1" within "#open-trades"
+    And I should see "1" within "#all-trades"
+    And I should see "There are no open offers to display" within "#open-offers"
+    And I should see "Claude Giroux" within "#accepted-offers"

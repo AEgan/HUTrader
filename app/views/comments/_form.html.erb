@@ -1,0 +1,9 @@
+<%= simple_form_for [@trade, @offer, @comment] do |f| %>
+  <div class="input-field">
+    <%= f.input :body, input_html: {class: "materialize-textarea"  }%>
+  </div>
+  <div class="input-field">
+    <%= f.submit nil, class: "btn blue" %>
+    <%= link_to "Cancel", trade_offer_path(@trade, @offer), class: 'btn red'%>
+  </div>
+<% end %>

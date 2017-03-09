@@ -1,26 +1,13 @@
 <h1><%= @offer.user.username %>'s Offer</h1>
 <em>Coins: <%= @offer.coins %></em>
-<% if @players.empty? %>
-  There are no players associated with this trade
-<% else %>
-  <h2>Players</h2>
-  <table>
-    <thead>
-      <th>Player</th>
-      <th>Overall</th>
-      <th></th>
-    </thead>
-    <tbody>
-      <% @players.each do |player| %>
-        <tr>
-          <td><%= link_to player.proper_name, player %></td>
-          <td><%= player.overall %></td>
-          <td><%= link_to "Details", player %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+<div class="row">
+  <div class="col s12 m12 l4">
+    <%= render 'players_for_offer' %>
+  </div>
+  <div class="col s12 m12 l8">
+    <%= render 'comment_area' %>
+  </div>
+</div>
 <%= link_to "Trade Details", @trade %>
 <% if logged_in? && current_user.id == @offer.user_id %>
   <%= link_to "Edit Offer", edit_trade_offer_path(@trade, @offer) %>

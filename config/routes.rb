@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :users, except: [:index, :destroy]
   resources :teams, only: [:show, :index]
   resources :trades, except: [:destroy] do
-    resources :offers
+    resources :offers do
+      resources :comments
+    end
   end
   post 'trades/:id/cancel' => 'trades#cancel', as: :cancel_trade
   post 'trades/:trade_id/offers/:id/accept' => 'offers#accept', as: :trade_offer_accept

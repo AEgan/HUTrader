@@ -1,0 +1,22 @@
+<% if offers.empty? %>
+  <em>There are no <%= description %> to display</em>
+<% else %>
+  <table>
+    <thead>
+      <th>Player</th>
+      <th>Coins</th>
+      <th>Offer</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% offers.each do |offer| %>
+        <tr>
+          <td><%= link_to offer.trade.player.proper_name, offer.trade.player %></td>
+          <td><%= offer.coins %></td>
+          <td><%= offer.players.map(&:proper_name).to_sentence%></td>
+          <td><%= link_to "Details", trade_offer_path(offer.trade, offer) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

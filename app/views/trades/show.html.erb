@@ -34,30 +34,7 @@
     There currently no trade offers.
   </p>
   <% else %>
-    <table>
-      <thead>
-        <th>User</th>
-        <th>Player(s)</th>
-        <th>Coins</th>
-        <th></th>
-        <% if logged_in? && current_user_posted_trade %>
-          <th></th>
-        <% end %>
-      </thead>
-      <tbody>
-        <% @offers.each do |offer| %>
-          <tr>
-            <td><%= offer.user.username %></td>
-            <td><%= offer.players.map(&:proper_name).to_sentence %></td>
-            <td><%= offer.coins %></td>
-            <td><%= link_to "View Offer", trade_offer_path(@trade, offer)%></td>
-            <% if logged_in? && current_user_posted_trade  && @trade.partner_id.nil? %>
-              <th><%= link_to "Accept Offer", trade_offer_accept_path(@trade, offer), method: :post %></th>
-            <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <%= render 'offer_table' %>
   <% end%>
   <% if user_can_offer_trade? %>
     <%= link_to "Offer Trade", new_trade_offer_path(@trade) %>

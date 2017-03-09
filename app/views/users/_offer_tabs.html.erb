@@ -1,0 +1,11 @@
+<h2>Offers</h2>
+<ul class="tabs user-tabs">
+  <li class="tab col s3"><a class="active blue-text" href="#open-offers">Open Offers</a></li>
+  <li class="tab col s3"><a class="blue-text" href="#accepted-offers">Accepted Offers</a></li>
+</ul>
+<div id="open-offers">
+  <%= render partial: 'user_offers', locals: { offers: @open_offers, description: "open offers"} %>
+</div>
+<div id="accepted-offers">
+  <%= render partial: 'user_offers', locals: { offers: @accepted_offers, description: "accepted offers" } %>
+</div>

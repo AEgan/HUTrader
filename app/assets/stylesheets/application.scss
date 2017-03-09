@@ -1,6 +1,8 @@
 @import "materialize/components/color";
 @import 'materialize';
 
+$comment-border-style: 1px solid #a1a1a1;
+
 .alert-box {
   border-radius: 25px;
   margin-top: 1%;
@@ -28,10 +30,37 @@ select {
   background-color: #f44336;
 }
 
+.user-tabs .indicator {
+  background-color: #01579b;
+}
+
 .console-tag {
   padding: 2%;
 }
 
 .under-slider {
   margin-top: 2%;
+}
+
+.CommentBox {
+  border: $comment-border-style;
+  margin-bottom: 15px;
+  &-commentBody {
+    margin: 10px;
+  }
+  &-posterName {
+    background-color: #e8f5e9;
+    border-bottom: $comment-border-style;
+    padding: 5px;
+    &--userComment {
+      background-color: #e3f2fd;
+    }
+  }
+}
+
+.btn-small {
+  border: $comment-border-style;
+  padding: 0 5px 0 5px;
+  background-color: #b3e5fc;
+  color: #ffffff;
 }

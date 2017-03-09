@@ -8,6 +8,7 @@ class UserTest < ActiveSupport::TestCase
   should have_many(:trades)
   should have_many(:partnered_trades).with_foreign_key(:partner_id).class_name('Trade')
   should have_many(:offers)
+  should have_many(:comments)
 
   # validation testing
   should validate_presence_of :username

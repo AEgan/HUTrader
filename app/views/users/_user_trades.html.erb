@@ -1,0 +1,24 @@
+<% if trades.empty? %>
+  <div class="under-slider">
+    <em>There are no <%= description %> to display</em>
+  </div>
+<% else %>
+<table class="under-slider">
+  <thead>
+    <th>Player</th>
+    <th>Offers</th>
+    <th>Status</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% trades.each do |trade| %>
+      <tr>
+        <td><%= link_to trade.player.proper_name, trade.player %></td>
+        <td><%= trade.offers.count %></td>
+        <td><%= trade.status %></td>
+        <td><%= link_to "Details", trade %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

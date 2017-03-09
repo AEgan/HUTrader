@@ -46,9 +46,16 @@ first_user_id = User.first.id
   FactoryGirl.create(:trade, user: user, player: player, partner: nil)
 end
 
-Trade.first(10).each do |trade|
+xbox_users = User.for_xbox
+playstation_users = User.for_playstation
+
+Trade.limit(20).includes(:user).each do |trade|
   (rand(4) + 1).times do |time|
-    user = User.find(rand(user_count) + first_user_id)
+    if trade.user.xbox_user?
+      user = xbox_users[rand(xbox_users.length)]
+    else
+      user = playstation_users[rand(playstation_users.length)]
+    end
     offer = FactoryGirl.build(:offer, trade: trade, user: user, coins: 1000 * time)
     if offer.save
       (rand(4) + 1).times do
@@ -62,4 +69,9 @@ Trade.first(10).each do |trade|
     trade.status = rand(2) == 0 ? Trade::STATUSES['partnered'] : Trade::STATUSES['complete']
     trade.save
   end
+end
+
+Offer.all.includes(:trade, :user).each do |o|
+  FactoryGirl.create(:comment, user: o.trade.user, offer: o)
+  FactoryGirl.create(:comment, user: o.user, offer: o)
 end

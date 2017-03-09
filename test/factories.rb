@@ -38,4 +38,10 @@ FactoryGirl.define do
     association :offer
     association :player
   end
+
+  factory :comment do
+    association :user
+    association :offer
+    body { Faker::Lorem.sentence(3) }
+  end
 end

@@ -6,6 +6,7 @@ class OfferTest < ActiveSupport::TestCase
   should belong_to(:user)
   should have_many(:offer_players)
   should have_many(:players).through(:offer_players)
+  should have_many(:comments)
 
   should accept_nested_attributes_for(:offer_players).allow_destroy(true)
 
@@ -29,12 +30,16 @@ class OfferTest < ActiveSupport::TestCase
       destroy_users
     end
 
-    should "have working factories for testing" do
-      assert_equal 4, Offer.all.length
-    end
-
     should "have a scope to order the offers by the coin value" do
       assert_equal [15000, 5000, 0, 0], Offer.by_coins.map(&:coins)
+    end
+
+    should "have a scope to return offers for open trades" do
+      assert_equal [@mike_offer_for_alex_giroux], Offer.open
+    end
+
+    should "have a scope to return offers that have accpeted partners" do
+      assert_equal [@john_offer_for_ryan_voracek, @ryan_offer_for_matt_mcdonagh, @alex_offer_for_mike_giroux].to_set, Offer.accepted.to_set
     end
 
     should "not let an offer be created without a valid trade" do

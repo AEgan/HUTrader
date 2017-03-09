@@ -1,0 +1,21 @@
+<% if @players.empty? %>
+  There are no players associated with this trade
+<% else %>
+  <h2>Players</h2>
+  <table>
+    <thead>
+      <th>Player</th>
+      <th>Overall</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @players.each do |player| %>
+        <tr>
+          <td><%= link_to player.proper_name, player %></td>
+          <td><%= player.overall %></td>
+          <td><%= link_to "Details", player %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
